@@ -22,7 +22,7 @@ while [ "$line_begin" -eq "$line_begin" ] 2>/dev/null; do
     # Get the line number of the match after the first match.
     line_end=$(echo "$dump_tail1" | grep -P -m 1 -n "^\s*TaskRecord" | grep -P -o "^\d+")
 
-    if [ -n $line_end ]; then
+    if [ "$line_end" -eq "$line_end" ] 2>/dev/null; then
         # Remove all lines after and including the second match.
         dump_head=$(echo "$dump_tail" | head -n $line_end)
     else
