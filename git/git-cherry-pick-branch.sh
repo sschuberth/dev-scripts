@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This script requires bash for some advanced string matching.
+
 if [ $# -lt 2 ]; then
     echo "Rationale : Cherry-pick only those changes in a branch that affect a certain path"
     echo "Usage     : $(basename $0) <branch> <path> [resume]"
