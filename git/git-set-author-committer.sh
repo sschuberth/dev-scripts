@@ -1,8 +1,8 @@
 #!/bin/sh
 
 if [ $# -ne 3 ]; then
-    echo "Rationale : Set the author name an email address for a number of recent commits."
-    echo "Usage     : $(basename $0) <number of commits> <name> <email address>"
+    echo "Rationale : Set the author and committer name and email for a number of recent commits."
+    echo "Usage     : $(basename $0) <number of commits> <name> <email>"
     exit -1
 fi
 
