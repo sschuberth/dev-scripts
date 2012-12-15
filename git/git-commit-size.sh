@@ -6,7 +6,7 @@ if [ $# -ne 1 ]; then
     exit -1
 fi
 
-blob_sizes=$(git diff-tree -r -c -M -C --no-commit-id $1 | grep " A	" | cut -d " " -f 4 | git cat-file --batch-check | cut -d " " -f 3)
+blob_sizes=$(git diff-tree -r -c -M -C --no-commit-id $1 | grep " M	" | cut -d " " -f 4 | git cat-file --batch-check | cut -d " " -f 3)
 total_size=0
 
 for size in $blob_sizes; do
