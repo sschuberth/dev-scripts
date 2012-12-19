@@ -7,10 +7,13 @@ alias gr='cd ./$(git rev-parse --show-cdup 2> /dev/null)'
 alias ggu='git br -vv | sed -nr "s/^\*.*\[(.*)\].*$/\1/p"'
 
 # Git Fetch Prune
-alias gfp='git fetch && git remote prune origin'
+alias gfp='git fetch --all && gpr'
 
 # Git Pull Prune
-alias gpp='git pull --rebase && git remote prune origin'
+alias gpp='git pull --rebase && gpr'
+
+# Git Prune Remotes
+alias gpr='for remote in $(git remote); do git remote prune $remote; done'
 
 # Git Compare Differences
 function git_cmp_diffs() {
