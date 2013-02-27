@@ -1,0 +1,45 @@
+[user]
+	name = Sebastian Schuberth
+	email = sschuberth@gmail.com
+[core]
+	pager = less -+S
+	autocrlf = true
+	safecrlf = warn
+[alias]
+	br = branch
+	ci = commit
+	co = checkout
+	cp = cherry-pick
+	dt = difftool
+	mt = mergetool
+	mu = merge --ff-only @{u}
+	in = !git fetch && git log --oneline ..@{u}
+	out = !git fetch && git log --oneline @{u}..
+	ra = rebase --abort
+	rc = rebase --continue
+	rs = remote -v show
+	ru = reset --hard @{u}
+	st = status
+[color]
+	ui = true
+[push]
+	default = current
+[rerere]
+	enabled = true
+[diff]
+	renamelimit = 0
+	tool = bc3
+[difftool]
+	prompt = false
+[difftool "bc3"]
+	path = c:/Program Files (x86)/Beyond Compare 3/BComp.com
+[difftool "ecmerge"]
+	path = c:/Program Files (x86)/ECMerge/ecmerge.exe
+[merge]
+	tool = bc3
+[mergetool]
+	prompt = false
+[mergetool "bc3"]
+	path = c:/Program Files (x86)/Beyond Compare 3/BComp.com
+[mergetool "ecmerge"]
+	path = c:/Program Files (x86)/ECMerge/ecmerge.exe
