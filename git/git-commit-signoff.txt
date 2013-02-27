@@ -1,0 +1,7 @@
+
+
+Signed-off-by: Sebastian Schuberth <sschuberth@gmail.com>
+
+# To use this configure git like
+#
+# $ git config (--global) commit.template <path>/git-commit-signoff.txt
