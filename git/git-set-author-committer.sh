@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [[ $# -ne 3 && $# -ne 5 ]]; then
     echo "Rationale : Set the author and committer name and email for a number of recent commits."
