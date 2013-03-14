@@ -13,13 +13,14 @@
 	dt = difftool
 	mt = mergetool
 	mu = merge --ff-only @{u}
-	in = !git fetch && git log --oneline ..@{u}
-	out = !git fetch && git log --oneline @{u}..
 	ra = rebase --abort
 	rc = rebase --continue
 	rs = remote -v show
 	ru = reset --hard @{u}
 	st = status
+	in = !git fetch -q && git log --oneline ..@{u}
+	out = !git fetch -q && git log --oneline @{u}..
+	locate = ls-tree --name-only HEAD
 [color]
 	ui = true
 [push]
