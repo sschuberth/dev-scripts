@@ -25,7 +25,7 @@
 [color]
 	ui = true
 [push]
-	default = current
+	default = upstream
 [rerere]
 	enabled = true
 [diff]
