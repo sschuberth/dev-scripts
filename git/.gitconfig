@@ -10,7 +10,7 @@
 	ci = commit
 	co = checkout
 	cp = cherry-pick
-	dt = difftool --dir-diff
+	dt = difftool
 	mt = mergetool
 	mu = merge --ff-only @{u}
 	ra = rebase --abort
@@ -34,7 +34,7 @@
 [difftool]
 	prompt = false
 [difftool "bc3"]
-	path = c:/Program Files (x86)/Beyond Compare 3/BCompare.exe
+	path = c:/Program Files (x86)/Beyond Compare 3/BComp.com
 [difftool "ecmerge"]
 	path = c:/Program Files (x86)/ECMerge/ecmerge.exe
 [merge]
@@ -42,6 +42,6 @@
 [mergetool]
 	prompt = false
 [mergetool "bc3"]
-	path = c:/Program Files (x86)/Beyond Compare 3/BCompare.exe
+	path = c:/Program Files (x86)/Beyond Compare 3/BComp.com
 [mergetool "ecmerge"]
 	path = c:/Program Files (x86)/ECMerge/ecmerge.exe
