@@ -15,6 +15,7 @@
 	mu = merge --ff-only @{u}
 	ra = rebase --abort
 	rc = rebase --continue
+	ri = rebase --interactive
 	rs = remote -v show
 	ru = reset --hard @{u}
 	st = status
