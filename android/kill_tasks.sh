@@ -15,6 +15,6 @@ fi
 for line in "$ps"; do
     pid=$(echo "$line" | awk '{print $2}')
     package=$(echo "$line" | awk '{print $9}')
-    echo Killing process $pid of package $package.
-    adb shell run-as $package kill $pid
+    echo "Stopping package $package (process $pid)."
+    adb shell am force-stop $package
 done
