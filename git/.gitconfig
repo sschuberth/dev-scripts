@@ -23,6 +23,8 @@
 	in = !git fetch -q && git log --oneline ..@{u}
 	out = !git fetch -q && git log --oneline @{u}..
 	locate = ls-tree --name-only HEAD
+	log-day = !git log --oneline --no-merges --since=1.day --author=\"$(git config user.name)\"
+	log-sprint = !git log --oneline --no-merges --since=2.weeks --author=\"$(git config user.name)\"
 [color]
 	ui = true
 [push]
