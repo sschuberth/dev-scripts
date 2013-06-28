@@ -10,7 +10,7 @@
 	ci = commit
 	co = checkout
 	cp = cherry-pick
-	dt = difftool
+	dt = difftool -M
 	mt = mergetool
 	mu = merge --ff-only @{u}
 	ra = rebase --abort
