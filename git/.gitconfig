@@ -11,6 +11,7 @@
 	co = checkout
 	cp = cherry-pick
 	dt = difftool -M
+	fp = fetch --all --prune
 	mt = mergetool
 	mu = merge --ff-only @{u}
 	ra = rebase --abort
