@@ -12,8 +12,10 @@
 	cp = cherry-pick
 	dt = difftool -M
 	fp = fetch --all --prune
+	ls = ls-tree -r --name-only
 	mt = mergetool
 	mu = merge --ff-only @{u}
+	pr = pull --rebase
 	ra = rebase --abort
 	rc = rebase --continue
 	ri = rebase --interactive
