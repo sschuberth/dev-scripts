@@ -2,7 +2,7 @@
 
 if [ $# -ne 1 ]; then
     echo "Rationale : Show the conflict resolution of a given merge commit in the configured merge tool."
-    echo "Usage : $(basename $0) <merge commit>"
+    echo "Usage     : $(basename $0) <merge commit>"
     exit -1
 fi
 
