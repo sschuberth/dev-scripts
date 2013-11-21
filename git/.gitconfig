@@ -6,7 +6,7 @@
 	autocrlf = true
 	safecrlf = warn
 [alias]
-	br = branch -v
+	br = branch
 	ci = commit
 	co = checkout
 	cp = cherry-pick
