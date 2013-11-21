@@ -36,6 +36,7 @@
 	enabled = true
 [diff]
 	renamelimit = 0
+	renames = copies
 	tool = bc3
 [difftool]
 	prompt = false
