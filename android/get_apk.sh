@@ -2,7 +2,7 @@
 
 if [ $# -gt 1 ]; then
     echo "Rationale : Download the APK for an installed package from the device."
-    echo "Usage : $(basename $0) [package]"
+    echo "Usage     : $(basename $0) [package]"
     exit -1
 fi
 

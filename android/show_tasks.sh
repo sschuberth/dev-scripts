@@ -2,7 +2,7 @@
 
 if [ $# -ne 1 ]; then
     echo "Rationale : List the activity stack for all tasks of the given package."
-    echo "Usage : $(basename $0) <package>"
+    echo "Usage     : $(basename $0) <package>"
     exit -1
 fi
 

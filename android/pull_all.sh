@@ -2,7 +2,7 @@
 
 if [ $# -ne 1 ]; then
     echo "Rationale : Pull files from the device by wildcard."
-    echo "Usage : $(basename $0) <path>"
+    echo "Usage     : $(basename $0) <path>"
     exit -1
 fi
 
