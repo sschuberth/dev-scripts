@@ -7,4 +7,4 @@ if [ $# -ne 3 ]; then
     exit -1
 fi
 
-git push $1 $1/$2:refs/heads/$3 && git push $1 :$2
+git push $1 $1/$2:refs/heads/$3 :$2
