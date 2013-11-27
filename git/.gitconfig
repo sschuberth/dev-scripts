@@ -12,6 +12,11 @@
 	cp = cherry-pick
 	dt = difftool -M
 	fp = fetch --all --prune
+	id = rev-parse --short HEAD
+	in = !git fetch -q && git log --oneline ..@{u}
+	out = log --oneline @{u}..
+	log-day = !git log --oneline --no-merges --since=1.day --author=\"$(git config user.name)\"
+	log-sprint = !git log --oneline --no-merges --since=2.weeks --author=\"$(git config user.name)\"
 	ls = ls-tree -r --name-only HEAD
 	mt = mergetool
 	mu = merge --ff-only @{u}
@@ -22,11 +27,6 @@
 	rs = remote -v show
 	ru = reset --hard @{u}
 	st = status
-	id = rev-parse --short HEAD
-	in = !git fetch -q && git log --oneline ..@{u}
-	out = log --oneline @{u}..
-	log-day = !git log --oneline --no-merges --since=1.day --author=\"$(git config user.name)\"
-	log-sprint = !git log --oneline --no-merges --since=2.weeks --author=\"$(git config user.name)\"
 [color]
 	ui = true
 [push]
