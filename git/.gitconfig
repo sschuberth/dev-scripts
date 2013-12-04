@@ -49,5 +49,6 @@
 	prompt = false
 [mergetool "bc3"]
 	path = c:/Program Files (x86)/Beyond Compare 3/BComp.com
+	trustExitCode = true
 [mergetool "ecmerge"]
 	path = c:/Program Files (x86)/ECMerge/ecmerge.exe
