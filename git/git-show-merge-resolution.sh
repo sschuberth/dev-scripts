@@ -11,7 +11,7 @@ our=$1^1
 their=$1^2
 base=$(git merge-base $our $their)
 
-conflicting_files=$(git merge-tree $base $our $their | grep -A 3 "changed in both" | grep "base" | grep -Po "[^\s]+$")
+conflicting_files=$(git merge-tree $base $our $their | grep -A 3 "changed in both" | grep "base" | cut -d " " -f 8)
 for f in $conflicting_files; do
     diffuse -r $our -r $base -r $their $f
 done
