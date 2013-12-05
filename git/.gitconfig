@@ -12,6 +12,7 @@
 	cp = cherry-pick
 	dt = difftool -M
 	fp = fetch --all --prune
+	has = branch -a --contains
 	id = rev-parse --short HEAD
 	in = !git fetch -q && git log --oneline ..@{u}
 	out = log --oneline @{u}..
