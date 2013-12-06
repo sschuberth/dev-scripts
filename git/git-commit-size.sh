@@ -3,7 +3,7 @@
 if [ $# -ne 1 ]; then
     echo "Rationale : Get the total size of all files added by the specified commit."
     echo "Usage     : $(basename $0) <commit>"
-    exit -1
+    exit 1
 fi
 
 blob_sizes=$(git diff-tree -r -c -M -C --no-commit-id $1 | grep " A	" | cut -d " " -f 4 | git cat-file --batch-check | cut -d " " -f 3)

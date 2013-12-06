@@ -3,12 +3,12 @@
 if [ $# -lt 1 -o $# -gt 2 ]; then
     echo "Rationale : Show the resolution of a given merge commit in the configured merge tool."
     echo "Usage     : $(basename $0) [-c] <merge commit>"
-    exit -1
+    exit 1
 fi
 
 die() {
     echo >&2 "$@"
-    exit 1
+    exit 255
 }
 
 if [ "$1" == "-c" ]; then

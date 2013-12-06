@@ -3,7 +3,7 @@
 if [ $# -ne 1 ]; then
     echo "Rationale : Show the last committed change in a given file."
     echo "Usage     : $(basename $0) <filename>"
-    exit -1
+    exit 1
 fi
 
 git diff $(git log --pretty=oneline -1 $1 | cut -b 1-40)^ $1

@@ -5,12 +5,12 @@
 if [ $# -lt 2 ]; then
     echo "Rationale : Cherry-pick only those changes in a branch that affect a certain path"
     echo "Usage     : $(basename $0) <branch> <path> [resume]"
-    exit -1
+    exit 1
 fi
 
 die() {
     echo >&2 "$@"
-    exit 1
+    exit 255
 }
 
 commits=$(git rev-list --reverse --topo-order --no-merges $1 -- $2)

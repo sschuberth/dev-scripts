@@ -3,7 +3,7 @@
 if [ $# -ne 2 ]; then
     echo "Rationale : Cherry-pick only those changes in a commit that affect a certain path."
     echo "Usage     : $(basename $0) <commit> <path>"
-    exit -1
+    exit 1
 fi
 
 # If getting the diff to the previous commit fails (e.g. when picking the root commit), checkout instead.

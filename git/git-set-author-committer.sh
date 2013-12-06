@@ -3,7 +3,7 @@
 if [ $# -ne 3 -a $# -ne 5 ]; then
     echo "Rationale : Set the author and committer name and email for a number of recent commits."
     echo "Usage     : $(basename $0) <number of commits> <name> <email> [<name> <email>]"
-    exit -1
+    exit 1
 fi
 
 an=$2

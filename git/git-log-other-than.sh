@@ -3,7 +3,7 @@
 if [ $# -ne 2 ]; then
     echo "Rationale : Lists all commits that touch any files other than those matching a regex pattern."
     echo "Usage     : $(basename $0) <branch> <pattern>"
-    exit -1
+    exit 1
 fi
 
 for commit in $(git rev-list $1); do

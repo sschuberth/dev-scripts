@@ -3,7 +3,7 @@
 if [ $# -lt 1 ]; then
     echo "Rationale : Lists potential reviewers for given commits (wraps git-contacts)."
     echo "Usage     : $(basename $0) (<patch>|<range>|<rev>)..."
-    exit -1
+    exit 1
 fi
 
 for arg in "$@"; do
