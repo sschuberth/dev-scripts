@@ -28,6 +28,7 @@
 	rs = remote -v show
 	ru = reset --hard @{u}
 	st = status
+	unpushed = log --branches --not --remotes --simplify-by-decoration --decorate --oneline
 [color]
 	ui = true
 [push]
