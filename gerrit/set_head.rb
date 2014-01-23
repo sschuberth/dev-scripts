@@ -5,7 +5,7 @@ require 'net/http/digest_auth'
 require 'json'
 
 host, project, branch = ARGV
-if host == nil or project == nil or branch == nil
+if host.nil? or project.nil? or branch.nil?
     script = File.basename(__FILE__)
     puts "Usage   : #{script} <uri> <project> <branch>"
     puts "Example : #{script} user:password@host android master"
@@ -13,10 +13,10 @@ if host == nil or project == nil or branch == nil
 end
 
 uri = URI.parse("https://#{host}/a/projects/#{project}/HEAD")
-uri.user = ENV['USER'] || ENV['USERNAME'] if uri.user == nil
-uri.password = ENV['GERRIT_HTTP_PASSWORD'] if uri.password == nil
+uri.user = ENV['USER'] || ENV['USERNAME'] if uri.user.nil?
+uri.password = ENV['GERRIT_HTTP_PASSWORD'] if uri.password.nil?
 
-if uri.user == nil or uri.password == nil
+if uri.user.nil? or uri.password.nil?
     puts 'Error: Please specify a user and password as part of the URI.'
     exit
 end
