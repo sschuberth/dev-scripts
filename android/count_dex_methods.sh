@@ -14,23 +14,21 @@ CYGWIN* | MSYS* | MINGW*)
     ;;
 esac
 
-REPO_ROOT=$(git rev-parse --show-toplevel)
-cd "$REPO_ROOT"
-
 jars=$(find . -maxdepth 3 \( -path "*/bin/*" -or -path "*/libs/*" \) -and -name "*.jar")
 build_tools_version=$(find $ANDROID_HOME/build-tools -mindepth 1 -maxdepth 1 | tail -1)
 
+tmp_file=$(dirname $0)/tmp.dex
+
 total=0
 for file in $jars; do
-    $spawn "$build_tools_version/dx" --dex --output="$REPO_ROOT/tools/tmp.dex" "$REPO_ROOT/$file"
+    $spawn "$build_tools_version/dx" --dex --output="$tmp_file" "$file"
 
     # We have no hexdump on MSYS, so use a Perl script instead.
-    count=$(head -c 92 tools/tmp.dex | tail -c 4 | perl -e 'read STDIN, $long, 4; $value = unpack "V", $long; print "$value"')
+    count=$(head -c 92 $tmp_file | tail -c 4 | perl -e 'read STDIN, $long, 4; $value = unpack "V", $long; print "$value"')
 
     echo "$file: $count"
     let total=$total+$count
 done
-
 echo "Total: $total"
 
-rm tools/tmp.dex
+rm $tmp_file

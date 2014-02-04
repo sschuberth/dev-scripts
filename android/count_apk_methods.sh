@@ -7,9 +7,6 @@ CYGWIN* | MSYS* | MINGW*)
     ;;
 esac
 
-REPO_ROOT=$(git rev-parse --show-toplevel)
-cd "$REPO_ROOT"
-
 apks=$(find . -maxdepth 3 -path "*/bin/*" -and -name "*.apk")
 build_tools_version=$(find $ANDROID_HOME/build-tools -mindepth 1 -maxdepth 1 | tail -1)
 
