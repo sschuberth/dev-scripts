@@ -23,11 +23,15 @@ total=0
 for file in $jars; do
     $spawn "$build_tools_version/dx" --dex --output="$tmp_file" "$file"
 
-    # We have no hexdump on MSYS, so use a Perl script instead.
-    count=$(head -c 92 $tmp_file | tail -c 4 | perl -e 'read STDIN, $long, 4; $value = unpack "V", $long; print "$value"')
+    if [ -f $tmp_file ]; then
+        # We have no hexdump on MSYS, so use a Perl script instead.
+        count=$(head -c 92 $tmp_file | tail -c 4 | perl -e 'read STDIN, $long, 4; $value = unpack "V", $long; print "$value"')
 
-    echo "$file: $count"
-    let total=$total+$count
+        echo "$file: $count"
+        let total=$total+$count
+    else
+        echo "Error dexing file $file."
+    fi
 done
 echo "Total: $total"
 
