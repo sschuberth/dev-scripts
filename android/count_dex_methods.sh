@@ -14,7 +14,7 @@ CYGWIN* | MSYS* | MINGW*)
     ;;
 esac
 
-jars=$(find . -maxdepth 3 \( -path "*/bin/*" -or -path "*/libs/*" \) -and -name "*.jar")
+jars=$(find . -maxdepth 3 \( -path "*/bin/*" -or -path "*/libs/*" \) -and -name "*.jar" | sort)
 build_tools_version=$(find $ANDROID_HOME/build-tools -mindepth 1 -maxdepth 1 | tail -1)
 
 tmp_file=$(dirname $0)/tmp.dex

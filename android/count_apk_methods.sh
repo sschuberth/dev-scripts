@@ -7,7 +7,7 @@ CYGWIN* | MSYS* | MINGW*)
     ;;
 esac
 
-apks=$(find . -maxdepth 3 -path "*/bin/*" -and -name "*.apk")
+apks=$(find . -maxdepth 3 -path "*/bin/*" -and -name "*.apk" | sort)
 build_tools_version=$(find $ANDROID_HOME/build-tools -mindepth 1 -maxdepth 1 | tail -1)
 
 if [ "$1" = "-csv" ]; then
