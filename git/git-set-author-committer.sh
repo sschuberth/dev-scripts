@@ -16,4 +16,11 @@ else
     ce=$5
 fi
 
-git filter-branch -f --env-filter "GIT_AUTHOR_NAME='$an'; GIT_AUTHOR_EMAIL='$ae'; GIT_COMMITTER_NAME='$cn'; GIT_COMMITTER_EMAIL='$ce';" HEAD~$1..HEAD
+if [ $(git rev-list HEAD | wc -l) -eq $1 ]; then
+    # We need to rewrite all commits including the root commit.
+    range="-- --all"
+else
+    range="HEAD~$1..HEAD"
+fi
+
+git filter-branch -f --env-filter "GIT_AUTHOR_NAME='$an'; GIT_AUTHOR_EMAIL='$ae'; GIT_COMMITTER_NAME='$cn'; GIT_COMMITTER_EMAIL='$ce';" $range
