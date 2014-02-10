@@ -1,8 +1,9 @@
 #!/bin/sh
 
 if [ $# -lt 1 -o $# -gt 2 ]; then
-    echo "Rationale : Show the resolution of a given merge commit in the configured merge tool."
+    echo "Rationale : Show the merge commit resolution in the configured merge tool."
     echo "Usage     : $(basename $0) [-c] <merge commit>"
+    echo "Options   : -c (Show conflicts only.)"
     exit 1
 fi
 
