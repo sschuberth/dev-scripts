@@ -24,7 +24,7 @@
 	pr = pull --rebase
 	ra = rebase --abort
 	rc = rebase --continue
-	ri = rebase --interactive
+	ri = rebase -i -p
 	rs = remote -v show
 	ru = reset --hard @{u}
 	st = status
