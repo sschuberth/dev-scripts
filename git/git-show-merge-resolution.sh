@@ -70,6 +70,7 @@ for f in $files; do
     REMOTE="/tmp/$f.REMOTE"
     MERGED="/tmp/$1.MERGED"
 
+    # Silence the call to "touch" in "merge_cmd ()".
     BACKUP="/tmp/$1.BACKUP"
 
     mkdir -p $(dirname $LOCAL) && git show $ours:"$f" > $LOCAL
