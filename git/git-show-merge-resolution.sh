@@ -64,6 +64,10 @@ TOOL_MODE=merge
 
 merge_tool=$(get_merge_tool "$merge_tool") || die "Error: No merge tool configured."
 
+check_unchanged () {
+    status=0
+}
+
 for f in $files; do
     LOCAL="/tmp/$f.LOCAL"
     BASE="/tmp/$f.BASE"
