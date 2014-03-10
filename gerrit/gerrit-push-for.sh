@@ -18,31 +18,41 @@ else
     remote=$(echo "$remotes" | head -1)
 fi
 
+# Specify a topic if we are on a branch different from the target.
+topic=$(git rev-parse --abbrev-ref HEAD)
+if [ $topic != $target ]; then
+    echo -n "Pushing topic \"$topic\" to remote \"$remote\""
+    options="%topic=$topic"
+else
+    echo -n "Pushing to remote \"$remote\""
+fi
+
 # Determine email addresses of potential reviewers (except oneself).
 git contacts 2> /dev/null
 if [ $? -eq 9 ]; then
     user=$(git config user.name)
     reviewers=$(git contacts $remote/$target..HEAD | grep -iv "$user" | cut -d "<" -f 2 | cut -d ">" -f 1)
-    for email in $reviewers; do
-        if [ -z "$r" ]; then
-            r="r=$email"
-        else
-            r="$r,$email"
-        fi
-    done
-fi
 
-# Determine the reviewer count, stripping leading whitespace.
-count=$(echo "$reviewers" | wc -l)
-count=$(echo $count)
+    # Determine the reviewer count, stripping leading whitespace.
+    count=$(echo "$reviewers" | wc -l)
+    count=$(echo $count)
 
-# Specify a topic if we are on a branch different from the target.
-topic=$(git rev-parse --abbrev-ref HEAD)
-if [ $topic != $target ]; then
-    echo "Pushing topic \"$topic\" to remote \"$remote\" with $count reviewer(s) set."
-    options="%topic=$topic"
+    if [ $count -gt 0 ]; then
+        echo " with $count reviewer(s) set:"
+
+        for email in $reviewers; do
+            echo "    $email"
+            if [ -z "$r" ]; then
+                r="r=$email"
+            else
+                r="$r,$email"
+            fi
+        done
+    else
+        echo " with no reviewers set."
+    fi
 else
-    echo "Pushing to remote \"$remote\" with $count reviewer(s) set."
+    echo " with no reviewers set."
 fi
 
 if [ -n "$r" ]; then
