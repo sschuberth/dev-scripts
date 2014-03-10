@@ -21,10 +21,10 @@ fi
 # Specify a topic if we are on a branch different from the target.
 topic=$(git rev-parse --abbrev-ref HEAD)
 if [ $topic != $target ]; then
-    echo -n "Pushing topic \"$topic\" to remote \"$remote\""
+    echo -n "Going to push topic \"$topic\" to remote \"$remote\""
     options="%topic=$topic"
 else
-    echo -n "Pushing to remote \"$remote\""
+    echo -n "Going to push to remote \"$remote\""
 fi
 
 # Determine email addresses of potential reviewers (except oneself).
@@ -63,4 +63,7 @@ if [ -n "$r" ]; then
     fi
 fi
 
-git push $remote HEAD:refs/for/$target$options
+read -p "Do you want to push this review? [Y/n] " -n 1 -r
+if [ "$REPLY" != "n" -a "$REPLY" != "N" ]; then
+    git push $remote HEAD:refs/for/$target$options
+fi
