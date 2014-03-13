@@ -3,7 +3,7 @@
 if [ $# -ne 1 ]; then
     echo "Rationale : Push the current branch to Gerrit for integration into a target branch."
     echo "Usage     : $(basename $0) <target>"
-    echo "Example   : $(basename $0) SI/master"
+    echo "Example   : $(basename $0) master"
     exit 1
 fi
 
@@ -17,6 +17,9 @@ elif echo "$remotes" | grep -q ^origin$; then
 else
     remote=$(echo "$remotes" | head -1)
 fi
+
+# Create changes from the command line with topic and reviewers optionally set, see:
+# http://gerrit-documentation.googlecode.com/svn/Documentation/2.6/user-upload.html#push_create
 
 # Specify a topic if we are on a branch different from the target.
 topic=$(git rev-parse --abbrev-ref HEAD)
