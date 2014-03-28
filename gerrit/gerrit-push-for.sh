@@ -67,6 +67,7 @@ if [ -n "$r" ]; then
 fi
 
 read -p "Do you want to push this review? [Y/n] " -n 1 -r
+echo
 if [ "$REPLY" != "n" -a "$REPLY" != "N" ]; then
     git push $remote HEAD:refs/for/$target$options
 fi
