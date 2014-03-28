@@ -31,8 +31,7 @@ else
 fi
 
 # Determine email addresses of potential reviewers (except oneself).
-git contacts 2> /dev/null
-if [ $? -eq 9 ]; then
+if git help -a | grep -q " contacts "; then
     user=$(git config user.name)
     reviewers=$(git contacts $remote/$target..HEAD | grep -iv "$user" | cut -d "<" -f 2 | cut -d ">" -f 1)
 
