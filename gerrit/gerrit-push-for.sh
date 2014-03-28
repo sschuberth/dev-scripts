@@ -44,11 +44,10 @@ if git help -a | grep -q " contacts "; then
 
         for email in $reviewers; do
             echo "    $email"
-            if [ -z "$r" ]; then
-                r="r=$email"
-            else
-                r="$r,$email"
+            if [ -n "$r" ]; then
+                r="$r,"
             fi
+            r="${r}r=$email"
         done
     else
         echo " with no reviewers set."
