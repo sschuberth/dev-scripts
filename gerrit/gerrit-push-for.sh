@@ -1,13 +1,13 @@
 #!/bin/bash
 
-if [ $# -ne 1 ]; then
+if [ $# -gt 1 ]; then
     echo "Rationale : Push the current branch to Gerrit for integration into a target branch."
-    echo "Usage     : $(basename $0) <target>"
-    echo "Example   : $(basename $0) master"
+    echo "Usage     : $(basename $0) [target]"
+    echo "Example   : $(basename $0) staging"
     exit 1
 fi
 
-target=$1
+[ $# -eq 1 ] && target=$1 || target=master
 
 remotes=$(git remote show)
 if echo "$remotes" | grep -q ^gerrit$; then
@@ -25,10 +25,10 @@ fi
 topic=$(git rev-parse --abbrev-ref HEAD)
 topic=${topic#gerrit/}
 if [ $topic != $target ]; then
-    echo -n "Going to push topic \"$topic\" to remote \"$remote\""
+    echo -n "Going to push topic \"$topic\" for \"$remote/$target\""
     options="%topic=$topic"
 else
-    echo -n "Going to push to remote \"$remote\""
+    echo -n "Going to push for \"$remote/$target\""
 fi
 
 # Determine email addresses of potential reviewers (except oneself).
