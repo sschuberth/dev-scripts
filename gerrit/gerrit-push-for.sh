@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ $# -ne 1 ]; then
     echo "Rationale : Push the current branch to Gerrit for integration into a target branch."
@@ -23,6 +23,7 @@ fi
 
 # Specify a topic if we are on a branch different from the target.
 topic=$(git rev-parse --abbrev-ref HEAD)
+topic=${topic#gerrit/}
 if [ $topic != $target ]; then
     echo -n "Going to push topic \"$topic\" to remote \"$remote\""
     options="%topic=$topic"
