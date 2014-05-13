@@ -24,7 +24,7 @@ fi
 # Specify a topic if we are on a branch different from the target.
 topic=$(git rev-parse --abbrev-ref HEAD)
 topic=${topic#gerrit/}
-if [ $topic != $target ]; then
+if [[ "$topic" != "$target" && "$topic" != "HEAD" ]]; then
     echo -n "Going to push topic \"$topic\" for \"$remote/$target\""
     options="%topic=$topic"
 else
