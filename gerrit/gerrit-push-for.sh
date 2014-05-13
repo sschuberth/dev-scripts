@@ -18,6 +18,12 @@ else
     remote=$(echo "$remotes" | head -1)
 fi
 
+revlist=$(git rev-list -1 HEAD --not $remote/$target)
+if [[ $? -eq 0 && "$revlist" = "" ]]; then
+    echo "Nothing to do, HEAD is already merged into $remote/$target."
+    exit 2
+fi
+
 # Create changes from the command line with topic and reviewers optionally set, see:
 # http://gerrit-documentation.googlecode.com/svn/Documentation/2.6/user-upload.html#push_create
 
