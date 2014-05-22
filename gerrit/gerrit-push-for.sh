@@ -42,11 +42,10 @@ if git help -a | grep -q " contacts "; then
     user=$(git config user.name)
     reviewers=$(git contacts $remote/$target..HEAD | grep -iv "$user" | cut -d "<" -f 2 | cut -d ">" -f 1)
 
-    # Determine the reviewer count, stripping leading whitespace.
-    count=$(echo "$reviewers" | wc -l)
-    count=$(echo $count)
-
-    if [ $count -gt 0 ]; then
+    if [ "$reviewers" != "" ]; then
+        # Determine the reviewer count, stripping (leading) whitespace.
+        count=$(echo "$reviewers" | wc -l)
+        count=$(echo $count)
         echo " with $count reviewer(s) set:"
 
         for email in $reviewers; do
