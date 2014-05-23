@@ -1,13 +1,14 @@
 #!/bin/bash
 
-if [ $# -gt 1 ]; then
+if [ $# -gt 2 ]; then
     echo "Rationale : Push the current branch to Gerrit for integration into a target branch."
-    echo "Usage     : $(basename $0) [target]"
-    echo "Example   : $(basename $0) staging"
+    echo "Usage     : $(basename $0) [target] [ref]"
+    echo "Example   : $(basename $0) master HEAD"
     exit 1
 fi
 
-[ $# -eq 1 ] && target=$1 || target=master
+[ $# -ge 1 ] && target=$1 || target=master
+[ $# -ge 2 ] && ref=$2 || ref=HEAD
 
 remotes=$(git remote show)
 if echo "$remotes" | grep -q ^gerrit$; then
@@ -18,9 +19,9 @@ else
     remote=$(echo "$remotes" | head -1)
 fi
 
-revlist=$(git rev-list -1 HEAD --not $remote/$target)
+revlist=$(git rev-list -1 $ref --not $remote/$target)
 if [[ $? -eq 0 && "$revlist" = "" ]]; then
-    echo "Nothing to do, HEAD is already merged into $remote/$target."
+    echo "Nothing to do, $ref is already merged into $remote/$target."
     exit 2
 fi
 
@@ -28,9 +29,9 @@ fi
 # http://gerrit-documentation.googlecode.com/svn/Documentation/2.6/user-upload.html#push_create
 
 # Specify a topic if we are on a branch different from the target.
-topic=$(git rev-parse --abbrev-ref HEAD)
+topic=$(git rev-parse --abbrev-ref $ref)
 topic=${topic#gerrit/}
-if [[ "$topic" != "$target" && "$topic" != "HEAD" ]]; then
+if [[ "$topic" != "" && "$topic" != "HEAD" && "$topic" != "$target" ]]; then
     echo -n "Going to push topic \"$topic\" for \"$remote/$target\""
     options="%topic=$topic"
 else
@@ -40,7 +41,7 @@ fi
 # Determine email addresses of potential reviewers (except oneself).
 if git help -a | grep -q " contacts "; then
     user=$(git config user.name)
-    reviewers=$(git contacts $remote/$target..HEAD | grep -iv "$user" | cut -d "<" -f 2 | cut -d ">" -f 1)
+    reviewers=$(git contacts $remote/$target..$ref | grep -iv "$user" | cut -d "<" -f 2 | cut -d ">" -f 1)
 
     if [ "$reviewers" != "" ]; then
         # Determine the reviewer count, stripping (leading) whitespace.
@@ -73,5 +74,5 @@ fi
 read -p "Do you want to push this review? [Y/n] " -n 1 -r
 echo
 if [ "$REPLY" != "n" -a "$REPLY" != "N" ]; then
-    git push $remote HEAD:refs/for/$target$options
+    git push $remote $ref:refs/for/$target$options
 fi
