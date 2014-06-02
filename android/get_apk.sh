@@ -6,7 +6,7 @@ if [ $# -gt 1 ]; then
     exit 1
 fi
 
-packages=$(adb shell pm list packages | cut -d : -f 2)
+packages=$(adb shell pm list packages | cut -d : -f 2 | sort)
 
 if [ $# -eq 0 ]; then
     echo "$packages"
