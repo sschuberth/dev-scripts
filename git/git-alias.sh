@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Git Amend All
+alias gaa='git ci --amend -a --no-edit'
+
 # Git Root
 alias gr='cd ./$(git rev-parse --show-cdup 2> /dev/null)'
 
