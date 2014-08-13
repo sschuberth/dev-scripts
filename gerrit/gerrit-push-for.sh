@@ -63,16 +63,19 @@ else
     echo " with no reviewers set."
 fi
 
-if [ -n "$r" ]; then
-    if [ -z "$options" ]; then
-        options="%$r"
-    else
-        options="$options,$r"
+read -p "Do you want to push this review? [(Y)es/with(o)ut reviewers/(n)o] " -n 1 -r
+echo
+
+if [ "$REPLY" != "o" -a "$REPLY" != "O" ]; then
+    if [ -n "$r" ]; then
+        if [ -z "$options" ]; then
+            options="%$r"
+        else
+            options="$options,$r"
+        fi
     fi
 fi
 
-read -p "Do you want to push this review? [Y/n] " -n 1 -r
-echo
 if [ "$REPLY" != "n" -a "$REPLY" != "N" ]; then
     git push $remote $ref:refs/for/$target$options
 fi
