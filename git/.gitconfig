@@ -18,7 +18,7 @@
 	out = log --oneline @{u}..
 	log-day = !git log --oneline --no-merges --since=1.day --author=\"$(git config user.name)\"
 	log-sprint = !git log --oneline --no-merges --since=2.weeks --author=\"$(git config user.name)\"
-	ls = ls-tree -r --name-only HEAD
+	ls = "!f() { git ls-tree -r --name-only ${1:-HEAD}; }; f"
 	mt = mergetool
 	mu = merge --ff-only @{u}
 	pr = pull --rebase
