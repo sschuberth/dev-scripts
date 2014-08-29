@@ -34,6 +34,8 @@
 	ui = true
 [push]
 	default = simple
+[rebase]
+	autosquash = true
 [rerere]
 	enabled = true
 [diff]
