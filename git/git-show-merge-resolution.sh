@@ -12,7 +12,7 @@ die() {
     exit 255
 }
 
-if [ "$1" == "-c" ]; then
+if [ "$1" = "-c" ]; then
     conflicts_only=true
     shift
 else
@@ -37,17 +37,17 @@ else
 fi
 
 if $conflicts_only; then
-    if [ $count == 0 ]; then
+    if [ $count = "0" ]; then
         echo "There were no conflicting files in that merge commit."
-    elif [ $count == 1 ]; then
+    elif [ $count = "1" ]; then
         echo "There was one conflicting file in that merge commit:"
     else
         echo "There were $count conflicting files in that merge commit:"
     fi
 else
-    if [ $count == 0 ]; then
+    if [ $count = "0" ]; then
         echo "There were no files concurrently changed in both parents."
-    elif [ $count == 1 ]; then
+    elif [ $count = "1" ]; then
         echo "There was one file concurrently changed in both parents:"
     else
         echo "There were $count files concurrently changed in both parents:"
