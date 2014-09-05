@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ $# -lt 1 -o $# -gt 2 ]; then
     echo "Rationale : Show the merge commit resolution in the configured merge tool."
