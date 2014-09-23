@@ -5,14 +5,18 @@ if [ -z "$ANDROID_HOME" ]; then
     exit 1
 fi
 
-spawn=
 case $(uname -s) in
 CYGWIN* | MSYS* | MINGW*)
     spawn="cmd //c"
     ;;
 esac
 
-apks=$(find . \( -path "*/bin/*" -or -path "*/build/*" \) -and -name "*.apk" | sort)
+if [ $# -eq 0 ]; then
+    apks=$(find . -maxdepth 5 \( -path "*/bin/*" -or -path "*/build/outputs/apk/*" \) -and -name "*.apk" | sort)
+else
+    apks="$@"
+fi
+
 build_tools_version=$(find "$ANDROID_HOME/build-tools" -mindepth 1 -maxdepth 1 | tail -1)
 
 if [ "$1" = "-csv" ]; then

@@ -7,17 +7,20 @@ if [ -z "$ANDROID_HOME" ]; then
     exit 1
 fi
 
-spawn=
 case $(uname -s) in
 CYGWIN* | MSYS* | MINGW*)
     spawn="cmd //c"
     ;;
 esac
 
-jars=$(find . \( -path "*/bin/*" -or -path "*/build/*" -or -path "*/libs/*" \) -and -type f -and -name "*.jar" -and -not -name "*-javadoc.jar" -printf "%s\t%p\n" | sort -nr)
-jars=$(echo "$jars" | cut -f 2)
-build_tools_version=$(find "$ANDROID_HOME/build-tools" -mindepth 1 -maxdepth 1 | tail -1)
+if [ $# -eq 0 ]; then
+    jars=$(find . -maxdepth 6 \( -path "*/bin/*" -or -path "*/build/intermediates/bundles/*" -or -path "*/libs/*" \) -and -type f -and -name "*.jar" -and -not -name "*-javadoc.jar" -printf "%s\t%p\n" | sort -nr)
+    jars=$(echo "$jars" | cut -f 2)
+else
+    jars="$@"
+fi
 
+build_tools_version=$(find "$ANDROID_HOME/build-tools" -mindepth 1 -maxdepth 1 | tail -1)
 tmp_file=$(dirname $0)/tmp.dex
 
 if [ "$1" = "-csv" ]; then
