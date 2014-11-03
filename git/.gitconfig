@@ -8,6 +8,7 @@
 [alias]
 	br = branch
 	cat = "!f() { git show $2:\"$1\"; }; f"
+	chmod = git update-index --chmod=+x
 	ci = commit -v
 	co = checkout
 	cp = cherry-pick
