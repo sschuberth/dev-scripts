@@ -34,14 +34,15 @@ topic=$(git rev-parse --abbrev-ref $ref)
 topic=${topic#gerrit/}
 topic=${topic#${USER-$USERNAME}/}
 if [[ "$topic" != "" && "$topic" != "HEAD" && "$topic" != "$target" ]]; then
-    echo -n "Going to push $revcount \"$topic\" commit(s) for \"$remote/$target\""
+    echo "Going to push $revcount \"$topic\" commit(s) for \"$remote/$target\"."
     options="%topic=$topic"
 else
-    echo -n "Going to push $revcount commit(s) for \"$remote/$target\""
+    echo "Going to push $revcount commit(s) for \"$remote/$target\"."
 fi
 
 # Determine email addresses of potential reviewers (except oneself).
 if git help -a | grep -q " contacts "; then
+    echo "Determining reviewers..."
     user=$(git config user.name)
     reviewers=$(git contacts $remote/$target..$ref | grep -iv "$user" | cut -d "<" -f 2 | cut -d ">" -f 1)
 
@@ -49,7 +50,7 @@ if git help -a | grep -q " contacts "; then
         # Determine the reviewer count, stripping (leading) whitespace.
         count=$(echo "$reviewers" | wc -l)
         count=$(echo $count)
-        echo " with $count reviewer(s) set:"
+        echo "Found $count possible reviewer(s):"
 
         for email in $reviewers; do
             echo "    $email"
@@ -59,10 +60,10 @@ if git help -a | grep -q " contacts "; then
             r="${r}r=$email"
         done
     else
-        echo " with no reviewers set."
+        echo "No suitable reviewers found."
     fi
 else
-    echo " with no reviewers set."
+    echo "Skipping determining reviewers."
 fi
 
 read -p "Do you want to push this review? [(Y)es/with(o)ut reviewers/(n)o] " -n 1 -r
