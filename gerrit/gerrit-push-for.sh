@@ -19,8 +19,9 @@ else
     remote=$(echo "$remotes" | head -1)
 fi
 
-revlist=$(git rev-list -1 $ref --not $remote/$target)
-if [[ $? -eq 0 && "$revlist" = "" ]]; then
+revcount=$(git rev-list $ref --not $remote/$target | wc -l)
+revcount=$(echo $revcount)
+if [[ $? -eq 0 && $revcount -eq 0 ]]; then
     echo "Nothing to do, $ref is already merged into $remote/$target."
     exit 2
 fi
@@ -33,10 +34,10 @@ topic=$(git rev-parse --abbrev-ref $ref)
 topic=${topic#gerrit/}
 topic=${topic#${USER-$USERNAME}/}
 if [[ "$topic" != "" && "$topic" != "HEAD" && "$topic" != "$target" ]]; then
-    echo -n "Going to push topic \"$topic\" for \"$remote/$target\""
+    echo -n "Going to push $revcount \"$topic\" commit(s) for \"$remote/$target\""
     options="%topic=$topic"
 else
-    echo -n "Going to push for \"$remote/$target\""
+    echo -n "Going to push $revcount commit(s) for \"$remote/$target\""
 fi
 
 # Determine email addresses of potential reviewers (except oneself).
