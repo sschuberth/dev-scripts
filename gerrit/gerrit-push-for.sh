@@ -1,9 +1,37 @@
 #!/bin/bash
 
-if [ $# -gt 2 ]; then
-    echo "Rationale : Push the current branch to Gerrit for integration into a target branch."
-    echo "Usage     : $(basename $0) [target] [ref]"
-    echo "Example   : $(basename $0) master HEAD"
+refname="for"
+
+case $1 in
+--help)
+    help=true
+    shift
+    ;;
+--draft|-D)
+    refname="drafts"
+    shift
+    ;;
+-*)
+    echo "Error: Invalid option \"$1\"."
+    exit 2
+    ;;
+esac
+
+if [ -n "$help" -o $# -gt 2 ]; then
+    echo "Rationale"
+    echo "    Push a commit of the current branch to Gerrit for review."
+    echo
+    echo "Usage"
+    echo "    $(basename $0) [options] [target] [ref]"
+    echo
+    echo "Example"
+    echo "    $(basename $0) development HEAD^"
+    echo
+    echo "Options"
+    echo "    --help"
+    echo "        Show this help."
+    echo "    --draft, -D"
+    echo "        Submit changes as a draft."
     exit 1
 fi
 
@@ -23,7 +51,7 @@ revcount=$(git rev-list $ref --not $remote/$target | wc -l)
 revcount=$(echo $revcount)
 if [[ $? -eq 0 && $revcount -eq 0 ]]; then
     echo "Nothing to do, $ref is already merged into $remote/$target."
-    exit 2
+    exit 3
 fi
 
 # Create changes from the command line with topic and reviewers optionally set, see:
@@ -80,5 +108,5 @@ if [ "$REPLY" != "o" -a "$REPLY" != "O" ]; then
 fi
 
 if [ "$REPLY" != "n" -a "$REPLY" != "N" ]; then
-    git push $remote $ref:refs/for/$target$options
+    git push $remote $ref:refs/$refname/$target$options
 fi
