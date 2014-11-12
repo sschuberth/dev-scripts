@@ -6,6 +6,7 @@
 	autocrlf = true
 	safecrlf = warn
 [alias]
+	aa = commit --amend -a --no-edit
 	br = branch
 	cat = "!f() { git show $2:\"$1\"; }; f"
 	chmod = update-index --chmod=+x

@@ -1,8 +1,5 @@
 #!/bin/sh
 
-# Git Amend All
-alias gaa='git ci --amend -a --no-edit'
-
 # Git Compare Differences
 function git_cmp_diffs() {
     if [ $(git show $1 | git patch-id | cut -c 40) != $(git show $2 | git patch-id | cut -c 40) ]; then
