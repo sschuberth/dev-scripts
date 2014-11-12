@@ -3,12 +3,6 @@
 # Git Amend All
 alias gaa='git ci --amend -a --no-edit'
 
-# Git Root
-alias gr='cd ./$(git rev-parse --show-cdup 2> /dev/null)'
-
-# Git Get Upstream
-alias ggu='git br -vv | sed -nr "s/^\*.*\[(.*)\].*$/\1/p"'
-
 # Git Compare Differences
 function git_cmp_diffs() {
     if [ $(git show $1 | git patch-id | cut -c 40) != $(git show $2 | git patch-id | cut -c 40) ]; then
