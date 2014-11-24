@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+require_relative '../bundle/bundler/setup'
+
 require 'net/https'
 require 'net/http/digest_auth'
 require 'json'

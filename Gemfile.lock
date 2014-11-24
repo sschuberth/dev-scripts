@@ -1,0 +1,10 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    net-http-digest_auth (1.4)
+
+PLATFORMS
+  x64-mingw32
+
+DEPENDENCIES
+  net-http-digest_auth
