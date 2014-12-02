@@ -2,20 +2,22 @@
 
 refname="for"
 
-case $1 in
---help)
-    help=true
+while [ -n "$1" ]; do
+    case "$1" in
+    --help)
+        help=true
+        ;;
+    --draft|-D)
+        refname="drafts"
+        ;;
+    -*)
+        echo "Error: Invalid option \"$1\"."
+        exit 2
+        ;;
+    esac
+
     shift
-    ;;
---draft|-D)
-    refname="drafts"
-    shift
-    ;;
--*)
-    echo "Error: Invalid option \"$1\"."
-    exit 2
-    ;;
-esac
+done
 
 if [ -n "$help" -o $# -gt 2 ]; then
     echo "Rationale"
