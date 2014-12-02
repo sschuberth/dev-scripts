@@ -44,11 +44,6 @@
 [diff]
 	renamelimit = 0
 	renames = copies
-	tool = bc3
-[difftool]
-	prompt = false
-[difftool "bc3"]
-	path = c:/Program Files (x86)/Beyond Compare 3/BComp.com
 [merge]
 	tool = bc3
 [mergetool]
