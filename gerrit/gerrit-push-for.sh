@@ -21,7 +21,7 @@ done
 
 if [ -n "$help" -o $# -gt 2 ]; then
     echo "Rationale"
-    echo "    Push a commit of the current branch to Gerrit for review."
+    echo "    Push commits of the current branch to Gerrit for review."
     echo
     echo "Usage"
     echo "    $(basename $0) [options] [target] [ref]"
