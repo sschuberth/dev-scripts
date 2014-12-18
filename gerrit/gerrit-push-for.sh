@@ -14,6 +14,10 @@ while [ -n "$1" ]; do
         echo "Error: Invalid option \"$1\"."
         exit 2
         ;;
+    *)
+        # Stop parsing options on the first non-option argument.
+        break
+        ;;
     esac
 
     shift
