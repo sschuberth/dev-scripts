@@ -1,6 +1,7 @@
 #!/bin/bash
 
 refname="for"
+skip=0
 
 while [ -n "$1" ]; do
     case "$1" in
@@ -9,6 +10,9 @@ while [ -n "$1" ]; do
         ;;
     --draft|-D)
         refname="drafts"
+        ;;
+    -O)
+        skip=1
         ;;
     -*)
         echo "Error: Invalid option \"$1\"."
@@ -75,7 +79,8 @@ else
 fi
 
 # Determine email addresses of potential reviewers (except oneself).
-if git help -a | grep -q " contacts "; then
+git help -a | grep -q " contacts "
+if [[ $? -eq 0 && $skip -eq 0 ]]; then
     echo "Determining reviewers..."
     user=$(git config user.name)
     reviewers=$(git contacts $remote/$target..$ref | grep -iv "$user" | cut -d "<" -f 2 | cut -d ">" -f 1)
