@@ -105,7 +105,10 @@ else
     echo "Skipping determining reviewers."
 fi
 
-read -p "Do you want to push this review? [(Y)es/with(o)ut reviewers/(n)o] " -n 1 -r
+if [ -n "$reviewers" ]; then
+    choice="/with(o)ut reviewers"
+fi
+read -p "Do you want to push this review? [(Y)es$choice/(n)o] " -n 1 -r
 echo
 
 if [ "$REPLY" != "o" -a "$REPLY" != "O" ]; then
