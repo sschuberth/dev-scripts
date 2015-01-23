@@ -25,6 +25,7 @@
 	ls = "!f() { git ls-tree -r --name-only ${1:-HEAD}; }; f"
 	mt = mergetool
 	mu = merge --ff-only @{u}
+	orphan = "!f() { git checkout --orphan $1 && git rm -fr .; }; f"
 	pr = pull --rebase
 	ra = rebase --abort
 	rc = rebase --continue
