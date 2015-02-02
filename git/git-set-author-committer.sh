@@ -1,16 +1,22 @@
 #!/bin/sh
 
-if [ $# -ne 3 -a $# -ne 5 ]; then
+if [ $# -ne 1 -a $# -ne 3 -a $# -ne 5 ]; then
     echo "Rationale : Set the author and committer name and email for a number of recent commits."
-    echo "Usage     : $(basename $0) <number of commits> <name> <email> [<name> <email>]"
+    echo "Usage     : $(basename $0) <number of commits> [<author name> <author email> [<committer name> <committer email>]]"
     exit 1
 fi
 
-an=$2
-ae=$3
-if [ $# -eq 3 ]; then
-    cn=$2
-    ce=$3
+if [ $# -eq 1 ]; then
+    an="$(git config user.name)"
+    ae="$(git config user.email)"
+else
+    an=$2
+    ae=$3
+fi
+
+if [ $# -ne 5 ]; then
+    cn=$an
+    ce=$ae
 else
     cn=$4
     ce=$5
