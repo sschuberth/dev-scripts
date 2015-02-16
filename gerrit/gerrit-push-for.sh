@@ -78,30 +78,50 @@ else
     echo "Going to push $revcount commit(s) for \"$remote/$target\"."
 fi
 
-# Determine email addresses of potential reviewers (except oneself).
-git help -a | grep -q " contacts "
-if [[ $? -eq 0 && $skip -eq 0 ]]; then
-    echo "Determining reviewers..."
-    user=$(git config user.name)
-    reviewers=$(git contacts $remote/$target..$ref | grep -iv "$user" | cut -d "<" -f 2 | cut -d ">" -f 1)
-
-    if [ "$reviewers" != "" ]; then
-        # Determine the reviewer count, stripping (leading) whitespace.
-        count=$(echo "$reviewers" | wc -l)
-        count=$(echo $count)
-        echo "Found $count possible reviewer(s):"
-
-        for email in $reviewers; do
-            echo "    $email"
-            if [ -n "$r" ]; then
-                r="$r,"
+if [ $skip -eq 0 ]; then
+    # Determine email addresses of potential reviewers (except oneself).
+    git help -a | grep -q " contacts "
+    if [ $? -ne 0 ]; then
+        read -p "git-contacts not found, do you want to download it? [(Y)es/(n)o] " -n 1 -r
+        echo
+        if [ "$REPLY" != "n" -a "$REPLY" != "N" ]; then
+            exec_path=$(git --exec-path)
+            if [ $? -eq 0 -a -n "$exec_path" ]; then
+                curl -Lo "$exec_path/git-contacts" https://github.com/git/git/raw/master/contrib/contacts/git-contacts
             fi
-            r="${r}r=$email"
-        done
-    else
-        echo "No suitable reviewers found."
+        fi
+        git help -a | grep -q " contacts "
     fi
-else
+
+    # Second try after potentially have downloaded git-contacts.
+    if [ $? -eq 0 ]; then
+        echo "Determining reviewers..."
+        user=$(git config user.name)
+        reviewers=$(git contacts $remote/$target..$ref | grep -iv "$user" | cut -d "<" -f 2 | cut -d ">" -f 1)
+
+        if [ "$reviewers" != "" ]; then
+            # Determine the reviewer count, stripping (leading) whitespace.
+            count=$(echo "$reviewers" | wc -l)
+            count=$(echo $count)
+            echo "Found $count possible reviewer(s):"
+
+            for email in $reviewers; do
+                echo "    $email"
+                if [ -n "$r" ]; then
+                    r="$r,"
+                fi
+                r="${r}r=$email"
+            done
+        else
+            echo "No suitable reviewers found."
+        fi
+    else
+        echo "git-contacts not available."
+        skip=1
+    fi
+fi
+
+if [ $skip -ne 0 ]; then
     echo "Skipping determining reviewers."
 fi
 
