@@ -11,7 +11,7 @@ while [ -n "$1" ]; do
     --draft|-D)
         refname="drafts"
         ;;
-    -O)
+    --without-reviewers|-O)
         skip=1
         ;;
     -*)
@@ -42,6 +42,8 @@ if [ -n "$help" -o $# -gt 2 ]; then
     echo "        Show this help."
     echo "    --draft, -D"
     echo "        Submit changes as a draft."
+    echo "    --without-reviewers, -O"
+    echo "        Do not attempt to determine reviewers."
     exit 1
 fi
 
