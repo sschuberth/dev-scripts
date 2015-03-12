@@ -12,6 +12,7 @@
 	chmod = update-index --chmod=+x
 	ci = commit -v
 	co = checkout
+	commit-id = "!f() { commit=${1:-HEAD}; git log -1 --patch $commit | git patch-id | cut -d' ' -f1; }; f"
 	cp = cherry-pick
 	dt = difftool -M
 	fixup = "!f() { base=${1:-2}; git reset --soft HEAD~$base && git commit -C ORIG_HEAD~$(expr $base - 1); }; f"
