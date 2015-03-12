@@ -34,6 +34,7 @@
 	ru = reset --hard @{u}
 	st = status
 	unpushed = log --branches --not --remotes --simplify-by-decoration --decorate --oneline
+	up = "!f() { upstream=${1:-upstream/master}; head=${2:-HEAD}; git log --cherry --oneline $upstream...$head; }; f"
 [color]
 	ui = true
 [push]
