@@ -29,7 +29,8 @@ done
 
 if [ -n "$help" -o $# -gt 2 ]; then
     echo "Rationale"
-    echo "    Push commits of the current branch to Gerrit for review."
+    echo "    Push commits of the current branch to Gerrit for review, optionally"
+    echo "    determining reviewers excluding those in ~/gerrit-push-for.blacklist."
     echo
     echo "Usage"
     echo "    $(basename $0) [options] [target] [ref]"
@@ -100,6 +101,10 @@ if [ $skip -eq 0 ]; then
         echo "Determining reviewers..."
         user=$(git config user.name)
         reviewers=$(git contacts $remote/$target..$ref | grep -iv "$user" | cut -d "<" -f 2 | cut -d ">" -f 1)
+        if [ -f ~/gerrit-push-for.blacklist ]; then
+            dos2unix -k ~/gerrit-push-for.blacklist 2> /dev/null
+            reviewers=$(echo "$reviewers" | grep -vf ~/gerrit-push-for.blacklist)
+        fi
 
         if [ "$reviewers" != "" ]; then
             # Determine the reviewer count, stripping (leading) whitespace.
