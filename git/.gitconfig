@@ -1,6 +1,5 @@
-[user]
-	name = Sebastian Schuberth
-	email = sschuberth@gmail.com
+[include]
+	path = ~/.gituser
 [core]
 	pager = less -+S
 	autocrlf = true
