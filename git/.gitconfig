@@ -24,6 +24,7 @@
 	log-day = !git log --oneline --no-merges --since=1.day --author=\"$(git config user.name)\"
 	log-sprint = !git log --oneline --no-merges --since=2.weeks --author=\"$(git config user.name)\"
 	ls = "!f() { git ls-tree -r --name-only ${1:-HEAD}; }; f"
+	mb = "!f() { git branch -r | grep ${USER-$USERNAME}; }; f"
 	mt = mergetool
 	mu = merge --ff-only @{u}
 	orphan = "!f() { git checkout --orphan $1 && git rm -fr .; }; f"
