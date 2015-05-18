@@ -49,9 +49,9 @@
 	renamelimit = 0
 	renames = copies
 [merge]
-	tool = bc3
+	tool = bc
 [mergetool]
 	prompt = false
-[mergetool "bc3"]
-	path = c:/Program Files (x86)/Beyond Compare 3/BComp.com
+[mergetool "bc"]
+	path = c:/Program Files (x86)/Beyond Compare 4/BComp.com
 	trustExitCode = true
