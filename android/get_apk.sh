@@ -11,23 +11,19 @@ packages=$(adb shell pm list packages | cut -d : -f 2 | sort)
 if [ $# -eq 0 ]; then
     echo "$packages"
 else
-    prefix="/data/app/"
-
     case $(uname -s) in
     MINGW*)
         # Use a double-slash in the beginning to prevent MSYS path mangling.
-        prefix="/$prefix"
+        prefix="/"
         ;;
     esac
 
-    version=$(adb shell getprop ro.build.version.sdk)
-    if [ $version -ge 20 ]; then
-        suffix="-1/base.apk"
-    else
-        suffix="-1.apk"
-    fi
-
     for package in $(echo "$packages" | grep $1); do
-        adb pull $prefix$package$suffix $package.apk
+        path=$(adb shell pm path $package | cut -d : -f 2)
+
+        # Strip trailing whitespace.
+        path=$(echo $path)
+
+        adb pull $prefix$path $package.apk
     done
 fi
