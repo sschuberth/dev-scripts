@@ -28,6 +28,6 @@ else
     fi
 
     for package in $(echo "$packages" | grep $1); do
-        adb pull $prefix$package$suffix
+        adb pull $prefix$package$suffix $package.apk
     done
 fi
