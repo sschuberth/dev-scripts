@@ -10,19 +10,11 @@ host, project, branch = ARGV
 if host.nil? or project.nil? or branch.nil?
     script = File.basename(__FILE__)
     puts "Usage   : #{script} <uri> <project> <branch>"
-    puts "Example : #{script} user:password@host android master"
+    puts "Example : #{script} [user:password@]host[:port] android master"
     exit
 end
 
 uri = URI.parse("https://#{host}/a/projects/#{project}/HEAD")
-uri.user = ENV['USER'] || ENV['USERNAME'] if uri.user.nil?
-uri.password = ENV['GERRIT_HTTP_PASSWORD'] if uri.password.nil?
-
-if uri.user.nil? or uri.password.nil?
-    puts 'Error: Please specify a user and password as part of the URI.'
-    exit
-end
-
 http = Net::HTTP.new(uri.host, uri.port)
 http.use_ssl = (uri.class == URI::HTTPS)
 http.verify_mode = OpenSSL::SSL::VERIFY_NONE
@@ -32,6 +24,14 @@ get_request = Net::HTTP::Get.new(uri.request_uri)
 response = http.request(get_request)
 
 if response.code.to_i == 401
+    uri.user = ENV['USER'] || ENV['USERNAME'] if uri.user.nil?
+    uri.password = ENV['GERRIT_HTTP_PASSWORD'] if uri.password.nil?
+
+    if uri.user.nil? or uri.password.nil?
+        puts 'Error: Please specify a user and password as part of the URI.'
+        exit
+    end
+
     www_auth = response['www-authenticate']
 
     www_auth_split = www_auth.split(',').map do |item|
@@ -48,7 +48,7 @@ end
 
 # Execute
 put_request = Net::HTTP::Put.new(uri.request_uri, { 'Content-Type' => 'application/json' })
-put_request.add_field('Authorization', put_auth)
+put_request.add_field('Authorization', put_auth) if defined? put_auth
 
 HEAD = { :ref => 'refs/heads/' + branch }
 put_request.body = HEAD.to_json
