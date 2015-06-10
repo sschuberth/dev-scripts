@@ -14,7 +14,9 @@ if host.nil? or project.nil? or branch.nil?
     exit
 end
 
-uri = URI.parse("https://#{host}/a/projects/#{project}/HEAD")
+host = 'https://' + host unless host.start_with?('https://', 'http://')
+uri = URI.parse("#{host}/a/projects/#{project}/HEAD")
+
 http = Net::HTTP.new(uri.host, uri.port)
 http.use_ssl = (uri.class == URI::HTTPS)
 http.verify_mode = OpenSSL::SSL::VERIFY_NONE
