@@ -30,10 +30,11 @@ pushd $tmpdir > /dev/null
 
 echo "Bumping version from $oldver to $newver from $newvershort servies ..."
 
-wget -O cmake_$newver.orig.tar.gz http://www.cmake.org/files/v$newvershort/cmake-$newver.tar.gz
+wget http://www.cmake.org/files/v$newvershort/cmake-$newver.tar.gz
+tar -xf cmake-$newver.tar.gz
+mv cmake-$newver.tar.gz cmake_$newver.orig.tar.gz
 
 wget https://launchpad.net/~$ppa_user/+archive/ubuntu/$ppa_name/+files/cmake_$old.debian.tar.xz
-mkdir cmake-$newver
 tar -C cmake-$newver -xf cmake_$old.debian.tar.xz
 
 cd cmake-$newver
