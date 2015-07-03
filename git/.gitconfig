@@ -14,7 +14,6 @@
 	commit-id = "!f() { commit=${1:-HEAD}; git log -1 --patch $commit | git patch-id | cut -d' ' -f1; }; f"
 	cp = cherry-pick
 	dt = difftool -M
-	fixup = "!f() { base=${1:-2}; git reset --soft HEAD~$base && git commit -C ORIG_HEAD~$(expr $base - 1); }; f"
 	fp = fetch --all --prune
 	has = branch -a --contains
 	id = rev-parse --short HEAD
@@ -33,6 +32,7 @@
 	ri = rebase -i -p
 	rs = remote -v show
 	ru = reset --hard @{u}
+	sq = "!f() { amount=${1:-2}; git reset --soft HEAD~$amount && git commit -m \"$(git log --format=%B --reverse HEAD..HEAD@{1})\" --edit; }; f"
 	st = status
 	unpushed = log --branches --not --remotes --simplify-by-decoration --decorate --oneline
 	up = "!f() { upstream=${1:-upstream/master}; head=${2:-HEAD}; git log --cherry --oneline $upstream...$head; }; f"
