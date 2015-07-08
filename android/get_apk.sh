@@ -19,11 +19,13 @@ else
     esac
 
     for package in $(echo "$packages" | grep $1); do
+        # Strip whitespace.
+        package=$(echo "$package" | tr -d "[[:space:]]")
+
         path=$(adb shell pm path $package | cut -d : -f 2)
+        path=$(echo "$path" | tr -d "[[:space:]]")
 
-        # Strip trailing whitespace.
-        path=$(echo $path)
-
+        echo "Pulling package $package from $path..."
         adb pull $prefix$path $package.apk
     done
 fi
