@@ -7,14 +7,28 @@ module Gerry
       def projects
         get('/projects/')
       end
-      
-      # Get the projects that start with the specified prefix 
+
+      # Get the projects that start with the specified prefix
       # and accessible by the caller.
       #
       # @param [String] name the project name.
       # @return [Hash] the projects.
       def find_project(name)
         get("/projects/#{name}")
+      end
+
+      # Set the symbolic HEAD ref for the specified project to
+      # point to the specified branch.
+      #
+      # @param [String] project the project name.
+      # @param [String] branch the branch to point to.
+      # @return [Array] the new ref to which HEAD points to.
+      def set_head(project, branch)
+        url = "/projects/#{project}/HEAD"
+        body = {
+          ref: 'refs/heads/' + branch
+        }
+        put(url, body)
       end
     end
   end

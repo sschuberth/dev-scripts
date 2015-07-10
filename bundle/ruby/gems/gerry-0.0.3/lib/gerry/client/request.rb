@@ -27,14 +27,14 @@ module Gerry
       def put(url, body)
         if @username && @password
           auth = { username: @username, password: @password }
-          response = self.class.put("/a#{url}", 
-            body: body.to_json, 
+          response = self.class.put("/a#{url}",
+            body: body.to_json,
             headers: { 'Content-Type' => 'application/json' },
             digest_auth: auth
           )
           parse(response)
         else
-          response = self.class.put(url, 
+          response = self.class.put(url,
             body: body.to_json,
             headers: { 'Content-Type' => 'application/json' }
           )
@@ -45,14 +45,14 @@ module Gerry
       def post(url, body)
         if @username && @password
           auth = { username: @username, password: @password }
-          response = self.class.post("/a#{url}", 
-            body: body.to_json, 
+          response = self.class.post("/a#{url}",
+            body: body.to_json,
             headers: { 'Content-Type' => 'application/json' },
             digest_auth: auth
           )
           parse(response)
         else
-          response = self.class.post(url, 
+          response = self.class.post(url,
             body: body.to_json,
             headers: { 'Content-Type' => 'application/json' }
           )
@@ -65,7 +65,13 @@ module Gerry
           raise_request_error(response)
         end
         if response.body
-          JSON.parse(remove_magic_prefix(response.body))
+          source = remove_magic_prefix(response.body)
+          if source.lines.length == 1 && !source.start_with?('{') && !source.start_with?('[')
+            # Work around the JSON gem not being able to parse top-level values, see
+            # https://github.com/flori/json/issues/206.
+            source = '[ ' + source + ' ]'
+          end
+          JSON.parse(source)
         else
           nil
         end
@@ -79,7 +85,7 @@ module Gerry
       def remove_magic_prefix(response_body)
         # We need to strip the magic prefix from the first line of the response, see
         # https://gerrit-review.googlesource.com/Documentation/rest-api.html#output.
-        response_body.sub(/^\)\]\}'$/, '')
+        response_body.sub(/^\)\]\}'$/, '').strip!
       end
     end
   end
