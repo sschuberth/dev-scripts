@@ -1,10 +1,19 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    net-http-digest_auth (1.4)
+    gerry (0.0.3)
+      httparty
+    httparty (0.13.5)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
+    json (1.8.3)
+    multi_xml (0.5.5)
 
 PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
-  net-http-digest_auth
+  gerry
+
+BUNDLED WITH
+   1.10.3

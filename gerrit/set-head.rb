@@ -2,63 +2,23 @@
 
 require_relative '../bundle/bundler/setup'
 
-require 'net/https'
-require 'net/http/digest_auth'
-require 'json'
+require 'gerry'
 
-host, project, branch = ARGV
-if host.nil? or project.nil? or branch.nil?
+uri_str, project, branch = ARGV
+if uri_str.nil? or project.nil? or branch.nil?
     script = File.basename(__FILE__)
     puts "Usage   : #{script} <uri> <project> <branch>"
     puts "Example : #{script} [user:password@]host[:port] android master"
     exit
 end
 
-host = 'https://' + host unless host.start_with?('https://', 'http://')
-uri = URI.parse("#{host}/a/projects/#{project}/HEAD")
+uri_str = 'https://' + uri_str unless uri_str.start_with?('https://', 'http://')
+uri = URI.parse(uri_str)
 
-http = Net::HTTP.new(uri.host, uri.port)
-http.use_ssl = (uri.class == URI::HTTPS)
-http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+uri.user = ENV['USER'] || ENV['USERNAME'] if uri.user.nil?
+uri.password = ENV['GERRIT_HTTP_PASSWORD'] if uri.password.nil?
 
-# Authenticate
-get_request = Net::HTTP::Get.new(uri.request_uri)
-response = http.request(get_request)
+Gerry::Client.default_options.update(verify: false)
+client = Gerry.new("#{uri.scheme}://#{uri.host}", uri.user, uri.password)
 
-if response.code.to_i == 401
-    uri.user = ENV['USER'] || ENV['USERNAME'] if uri.user.nil?
-    uri.password = ENV['GERRIT_HTTP_PASSWORD'] if uri.password.nil?
-
-    if uri.user.nil? or uri.password.nil?
-        puts 'Error: Please specify a user and password as part of the URI.'
-        exit
-    end
-
-    www_auth = response['www-authenticate']
-
-    www_auth_split = www_auth.split(',').map do |item|
-        item.split('=')
-    end
-    www_auth_split.flatten!.map! do |item|
-        item.strip
-    end
-    puts 'Authenticating ' + Hash[*www_auth_split]['Digest realm'] + ' with user ' + uri.user + '...'
-
-    digest_auth = Net::HTTP::DigestAuth.new
-    put_auth = digest_auth.auth_header(uri, www_auth, 'PUT')
-end
-
-# Execute
-put_request = Net::HTTP::Put.new(uri.request_uri, { 'Content-Type' => 'application/json' })
-put_request.add_field('Authorization', put_auth) if defined? put_auth
-
-HEAD = { :ref => 'refs/heads/' + branch }
-put_request.body = HEAD.to_json
-
-response = http.request(put_request)
-
-if response.code.to_i == 200
-    puts 'Successfully set HEAD to ' + branch + '.'
-else
-    puts 'Error setting HEAD to ' + branch + ': ' + response.message + '.'
-end
+puts 'HEAD now points to ' + client.set_head(project, branch).to_s

@@ -1,0 +1,15 @@
+)]}'
+[
+  {
+    "_account_id": 1000097,
+    "name": "Jane Roe",
+    "email": "jane.roe@example.com",
+    "username": "jane"
+  },
+  {
+    "_account_id": 1000096,
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "username": "john"
+  }
+]

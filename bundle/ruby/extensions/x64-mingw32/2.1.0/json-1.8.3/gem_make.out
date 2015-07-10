@@ -1,0 +1,10 @@
+C:/Ruby21-x64/bin/ruby.exe -r ./siteconf20150710-6892-cabvle.rb extconf.rb
+creating Makefile
+
+make "DESTDIR=" clean
+
+make "DESTDIR="
+make: Nothing to be done for `all'.
+
+make "DESTDIR=" install
+installing default libraries
