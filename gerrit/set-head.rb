@@ -21,4 +21,4 @@ uri.password = ENV['GERRIT_HTTP_PASSWORD'] if uri.password.nil?
 Gerry::Client.default_options.update(verify: false)
 client = Gerry.new("#{uri.scheme}://#{uri.host}", uri.user, uri.password)
 
-puts 'HEAD now points to ' + client.set_head(project, branch).to_s
+puts 'HEAD now points to ' + client.set_head(project, branch)

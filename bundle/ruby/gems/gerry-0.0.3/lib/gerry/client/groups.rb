@@ -13,9 +13,24 @@ module Gerry
 
       # Get all members for a group
       #
+      # @param [Array] options the query parameters
       # @return [Array] the members
-      def group_members(group_id)
+      def group_members(group_id, options = [])
         url = "/groups/#{group_id}/members/"
+
+        if options.empty?
+          return get(url)
+        end
+
+        options = map_options(options)
+        get("#{url}?#{options}")
+      end
+
+      # Get the directly included groups of a group
+      #
+      # @return [Array] the included groups
+      def included_groups(group_id)
+        url = "/groups/#{group_id}/groups/"
         get(url)
       end
 

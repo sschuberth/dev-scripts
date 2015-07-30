@@ -1,0 +1,250 @@
+)]}'
+{
+  "All-Projects": {
+    "revision": "edd453d18e08640e67a8c9a150cec998ed0ac9aa",
+    "local": {
+      "GLOBAL_CAPABILITIES": {
+        "permissions": {
+          "priority": {
+            "rules": {
+              "15bfcd8a6de1a69c50b30cedcdcc951c15703152": {
+                "action": "BATCH"
+              }
+            }
+          },
+          "streamEvents": {
+            "rules": {
+              "15bfcd8a6de1a69c50b30cedcdcc951c15703152": {
+                "action": "ALLOW"
+              }
+            }
+          },
+          "administrateServer": {
+            "rules": {
+              "53a4f647a89ea57992571187d8025f830625192a": {
+                "action": "ALLOW"
+              }
+            }
+          }
+        }
+      },
+      "refs/meta/config": {
+        "permissions": {
+          "submit": {
+            "rules": {
+              "53a4f647a89ea57992571187d8025f830625192a": {
+                "action": "ALLOW"
+              },
+              "global:Project-Owners": {
+                "action": "ALLOW"
+              }
+            }
+          },
+          "label-Code-Review": {
+            "label": "Code-Review",
+            "rules": {
+              "53a4f647a89ea57992571187d8025f830625192a": {
+                "action": "ALLOW",
+                "min": -2,
+                "max": 2
+              },
+              "global:Project-Owners": {
+                "action": "ALLOW",
+                "min": -2,
+                "max": 2
+              }
+            }
+          },
+          "read": {
+            "exclusive": true,
+            "rules": {
+              "53a4f647a89ea57992571187d8025f830625192a": {
+                "action": "ALLOW"
+              },
+              "global:Project-Owners": {
+                "action": "ALLOW"
+              }
+            }
+          },
+          "push": {
+            "rules": {
+              "53a4f647a89ea57992571187d8025f830625192a": {
+                "action": "ALLOW"
+              },
+              "global:Project-Owners": {
+                "action": "ALLOW"
+              }
+            }
+          }
+        }
+      },
+      "refs/for/refs/*": {
+        "permissions": {
+          "pushMerge": {
+            "rules": {
+              "global:Registered-Users": {
+                "action": "ALLOW"
+              }
+            }
+          },
+          "push": {
+            "rules": {
+              "global:Registered-Users": {
+                "action": "ALLOW"
+              }
+            }
+          }
+        }
+      },
+      "refs/tags/*": {
+        "permissions": {
+          "pushSignedTag": {
+            "rules": {
+              "53a4f647a89ea57992571187d8025f830625192a": {
+                "action": "ALLOW"
+              },
+              "global:Project-Owners": {
+                "action": "ALLOW"
+              }
+            }
+          },
+          "pushTag": {
+            "rules": {
+              "53a4f647a89ea57992571187d8025f830625192a": {
+                "action": "ALLOW"
+              },
+              "global:Project-Owners": {
+                "action": "ALLOW"
+              }
+            }
+          }
+        }
+      },
+      "refs/heads/*": {
+        "permissions": {
+          "forgeCommitter": {
+            "rules": {
+              "53a4f647a89ea57992571187d8025f830625192a": {
+                "action": "ALLOW"
+              },
+              "global:Project-Owners": {
+                "action": "ALLOW"
+              }
+            }
+          },
+          "forgeAuthor": {
+            "rules": {
+              "global:Registered-Users": {
+                "action": "ALLOW"
+              }
+            }
+          },
+          "submit": {
+            "rules": {
+              "53a4f647a89ea57992571187d8025f830625192a": {
+                "action": "ALLOW"
+              },
+              "global:Project-Owners": {
+                "action": "ALLOW"
+              }
+            }
+          },
+          "editTopicName": {
+            "rules": {
+              "53a4f647a89ea57992571187d8025f830625192a": {
+                "action": "ALLOW",
+                "force": true
+              },
+              "global:Project-Owners": {
+                "action": "ALLOW",
+                "force": true
+              }
+            }
+          },
+          "label-Code-Review": {
+            "label": "Code-Review",
+            "rules": {
+              "global:Registered-Users": {
+                "action": "ALLOW",
+                "min": -1,
+                "max": 1
+              },
+              "53a4f647a89ea57992571187d8025f830625192a": {
+                "action": "ALLOW",
+                "min": -2,
+                "max": 2
+              },
+              "global:Project-Owners": {
+                "action": "ALLOW",
+                "min": -2,
+                "max": 2
+              }
+            }
+          },
+          "create": {
+            "rules": {
+              "53a4f647a89ea57992571187d8025f830625192a": {
+                "action": "ALLOW"
+              },
+              "global:Project-Owners": {
+                "action": "ALLOW"
+              }
+            }
+          },
+          "push": {
+            "rules": {
+              "53a4f647a89ea57992571187d8025f830625192a": {
+                "action": "ALLOW"
+              },
+              "global:Project-Owners": {
+                "action": "ALLOW"
+              }
+            }
+          }
+        }
+      },
+      "refs/*": {
+        "permissions": {
+          "read": {
+            "rules": {
+              "global:Anonymous-Users": {
+                "action": "ALLOW"
+              },
+              "53a4f647a89ea57992571187d8025f830625192a": {
+                "action": "ALLOW"
+              }
+            }
+          }
+        }
+      }
+    },
+    "is_owner": true,
+    "owner_of": [
+      "GLOBAL_CAPABILITIES",
+      "refs/meta/config",
+      "refs/for/refs/*",
+      "refs/tags/*",
+      "refs/heads/*",
+      "refs/*"
+    ],
+    "can_upload": true,
+    "can_add": true,
+    "config_visible": true
+  },
+  "MyProject": {
+    "revision": "61157ed63e14d261b6dca40650472a9b0bd88474",
+    "inherits_from": {
+      "id": "All-Projects",
+      "name": "All-Projects",
+      "description": "Access inherited by all other projects."
+    },
+    "local": {},
+    "is_owner": true,
+    "owner_of": [
+      "refs/*"
+    ],
+    "can_upload": true,
+    "can_add": true,
+    "config_visible": true
+  }
+}

@@ -1,9 +1,9 @@
 )]}'
 {
   "awesome": {
-  	 "description": "Awesome project"
+    "description": "Awesome project"
   },
   "clean": {
-  	 "description": "Clean code!"
+    "description": "Clean code!"
   }
 }

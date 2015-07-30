@@ -66,20 +66,20 @@ module Gerry
         end
         if response.body
           source = remove_magic_prefix(response.body)
-          if source.lines.length == 1 && !source.start_with?('{') && !source.start_with?('[')
+          if source.lines.count == 1 && !source.start_with?('{') && !source.start_with?('[')
             # Work around the JSON gem not being able to parse top-level values, see
             # https://github.com/flori/json/issues/206.
-            source = '[ ' + source + ' ]'
+            source.gsub!(/^"|"$/, '')
+          else
+            JSON.parse(source)
           end
-          JSON.parse(source)
         else
           nil
         end
       end
 
       def raise_request_error(response)
-        body = response.body
-        raise RequestError.new("There was a request error! Response was: #{body}")
+        raise RequestError.new("There was a request error! Response was: #{response.message}")
       end
 
       def remove_magic_prefix(response_body)
