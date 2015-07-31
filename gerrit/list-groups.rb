@@ -31,7 +31,14 @@ if flags.include?('-u')
 
     STDERR.puts 'Determining groups that are used in permissions...'
 
-    $client.projects.keys.each_slice(100) do |projects|
+    batch_size = 100
+    count = 0
+    total = $client.projects.keys.count / batch_size
+    $client.projects.keys.each_slice(batch_size) do |projects|
+        STDERR.print (count/total).to_s + "%\r"
+        STDERR.flush
+        count += 100
+
         $client.access(projects).values.each do |info|
             info['local'].values.each do |permissions|
                 permissions['permissions'].values.each do |info|
@@ -63,8 +70,7 @@ if flags.include?('-u')
         children.each do |id|
             if id == group_id
                 STDERR.puts \
-                    "WARNING:\n\n" \
-                    "    #{$server}/#/admin/groups/uuid-#{group_id}\n\n" \
+                    "\nWARNING: Group #{$server}/#/admin/groups/uuid-#{group_id} " \
                     "includes itself.\n"
             elsif parents.include?(id)
                 STDERR.puts \
@@ -78,8 +84,14 @@ if flags.include?('-u')
         children.merge(grandchildren)
     end
 
+    count = 0
+    total = $client.groups.count
     included_groups = Set.new
     used_groups.each do |id|
+        STDERR.print (count/total).to_s + "%\r"
+        STDERR.flush
+        count += 100
+
         if id.match('^[0-9a-f]{40}$')
             included_groups.merge(get_included_group_ids_recursive(id))
         end
