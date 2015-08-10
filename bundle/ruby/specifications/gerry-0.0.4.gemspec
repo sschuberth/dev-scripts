@@ -1,14 +1,14 @@
 # -*- encoding: utf-8 -*-
-# stub: gerry 0.0.3 ruby lib
+# stub: gerry 0.0.4 ruby lib
 
 Gem::Specification.new do |s|
   s.name = "gerry"
-  s.version = "0.0.3"
+  s.version = "0.0.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
   s.authors = ["Fabian Mettler", "Andrew Erickson", "Travis Truman"]
-  s.date = "2015-06-12"
+  s.date = "2015-08-03"
   s.description = "  Simple Ruby wrapper for the Gerrit Code Review REST-API.\n"
   s.email = "trumant@gmail.com"
   s.homepage = "http://github.com/trumant/gerry"

@@ -14,10 +14,10 @@ Gem::Specification.new do |s|
   s.email = "sferik@gmail.com"
   s.homepage = "https://github.com/sferik/multi_xml"
   s.licenses = ["MIT"]
-  s.rubygems_version = "2.4.6"
+  s.rubygems_version = "2.4.5"
   s.summary = "A generic swappable back-end for XML parsing"
 
-  s.installed_by_version = "2.4.6" if s.respond_to? :installed_by_version
+  s.installed_by_version = "2.4.5" if s.respond_to? :installed_by_version
 
   if s.respond_to? :specification_version then
     s.specification_version = 3

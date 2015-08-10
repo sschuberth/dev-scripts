@@ -6,4 +6,4 @@ $:.unshift "#{path}/../#{ruby_engine}/gems/json-1.8.3/C/Users/seschube/Developme
 $:.unshift "#{path}/../#{ruby_engine}/gems/json-1.8.3/lib"
 $:.unshift "#{path}/../#{ruby_engine}/gems/multi_xml-0.5.5/lib"
 $:.unshift "#{path}/../#{ruby_engine}/gems/httparty-0.13.5/lib"
-$:.unshift "#{path}/../#{ruby_engine}/gems/gerry-0.0.3/lib"
+$:.unshift "#{path}/../#{ruby_engine}/gems/gerry-0.0.4/lib"

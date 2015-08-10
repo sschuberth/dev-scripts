@@ -1,0 +1,9 @@
+C:/Ruby/bin/ruby.exe -r ./siteconf20150810-11412-mi0qt2.rb extconf.rb
+creating Makefile
+
+make "DESTDIR=" clean
+
+make "DESTDIR="
+make: Nothing to be done for `all'.
+
+make "DESTDIR=" install
