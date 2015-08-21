@@ -1,48 +1,42 @@
 #!/bin/bash
 
-if [ $# -ne 4 ]; then
-    echo "Usage   : $(basename $0) <ppa user> <ppa name> <old version> <new version>"
-    echo "Example : $(basename $0) sschuberth cmake 3.2.1-1ppa3~vivid1 3.2.3-1ppa1~vivid1"
+if [ $# -ne 6 ]; then
+    echo "Usage   : $(basename $0) <from user> <from name> <from version> <to user> <to name> <to version>"
+    echo "Example : $(basename $0) ~george-edison55 cmake-3.x 3.2.2-2ubuntu2~ubuntu15.04.1~ppa1 sschuberth cmake 3.2.3-1ppa1~vivid1"
     exit 1
 fi
 
-ppa_user=$1
-ppa_name=$2
+from_user=$1
+from_name=$2
+from=$3
+from_ver=${from%%-*}
 
-old=$3
-oldver=${old%%-*}
-olddist=${old##*~}
-olddist=${olddist::-1}
+to_user=$4
+to_name=$5
+to=$6
+to_ver=${to%%-*}
+to_ver_short=${to_ver%.*}
+to_dist=${to##*~}
+to_dist=${to_dist::-1}
 
-new=$4
-newver=${new%%-*}
-newvershort=${newver%.*}
-newdist=${new##*~}
-newdist=${newdist::-1}
+temp_dir=$(mktemp -d)
+pushd $temp_dir > /dev/null
 
-if [ "$olddist" != "$newdist" ]; then
-    echo "Error: Old and new distributions have to match."
-    exit 2
-fi
+echo "Bumping version from $from_ver to $to_ver in $to_ver_short series ..."
 
-tmpdir=$(mktemp -d)
-pushd $tmpdir > /dev/null
+wget http://www.cmake.org/files/v$to_ver_short/cmake-$to_ver.tar.gz
+tar -xf cmake-$to_ver.tar.gz
+mv cmake-$to_ver.tar.gz cmake_$to_ver.orig.tar.gz
 
-echo "Bumping version from $oldver to $newver from $newvershort servies ..."
+wget https://launchpad.net/$from_user/+archive/ubuntu/$from_name/+files/cmake_$from.debian.tar.xz
+tar -C cmake-$to_ver -xf cmake_$from.debian.tar.xz
 
-wget http://www.cmake.org/files/v$newvershort/cmake-$newver.tar.gz
-tar -xf cmake-$newver.tar.gz
-mv cmake-$newver.tar.gz cmake_$newver.orig.tar.gz
-
-wget https://launchpad.net/~$ppa_user/+archive/ubuntu/$ppa_name/+files/cmake_$old.debian.tar.xz
-tar -C cmake-$newver -xf cmake_$old.debian.tar.xz
-
-cd cmake-$newver
-dch -v $new -D $newdist
+cd cmake-$to_ver
+dch -v $to -D $to_dist
 dpkg-buildpackage -S
 
 cd ..
-dput ppa:$ppa_user/$ppa_name cmake_${new}_source.changes
+dput ppa:$to_user/$to_name cmake_${to}_source.changes
 
 popd > /dev/null
-rm -fr $tempdir
+rm -fr $temp_dir
