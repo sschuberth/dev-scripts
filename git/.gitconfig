@@ -30,7 +30,7 @@
 	ra = rebase --abort
 	rc = rebase --continue
 	ri = rebase -i -p
-	rs = remote -v show
+	rs = remote -v
 	ru = reset --hard @{u}
 	sq = "!f() { amount=${1:-2}; git reset --soft HEAD~$amount && git commit -m \"$(git log --format=%B --reverse HEAD..HEAD@{1})\" --edit; }; f"
 	st = status
