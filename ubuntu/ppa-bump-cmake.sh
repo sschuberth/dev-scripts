@@ -31,12 +31,15 @@ mv cmake-$to_ver.tar.gz cmake_$to_ver.orig.tar.gz
 wget https://launchpad.net/$from_user/+archive/ubuntu/$from_name/+files/cmake_$from.debian.tar.xz
 tar -C cmake-$to_ver -xf cmake_$from.debian.tar.xz
 
-cd cmake-$to_ver
-dch -v $to -D $to_dist
-dpkg-buildpackage -S
+cd cmake-$to_ver &&
+dch -v $to -D $to_dist &&
+dpkg-buildpackage -S &&
 
-cd ..
+cd .. &&
 dput ppa:$to_user/$to_name cmake_${to}_source.changes
 
+result=$?
+
 popd > /dev/null
-rm -fr $temp_dir
+
+[ $result -eq 0 ] && rm -fr $temp_dir || echo "Not removing $temp_dir due to errors."
