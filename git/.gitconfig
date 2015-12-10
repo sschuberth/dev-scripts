@@ -18,7 +18,7 @@
 	has = branch -a --contains
 	id = rev-parse --short HEAD
 	in = !git fetch -q && git log --oneline ..@{u}
-	out = log --oneline @{u}..
+	out = "!f() { git log --oneline @{u}.. 2> /dev/null || git log --oneline origin/master..; }; f"
 	l1 = log -1 --pretty=fuller
 	log-day = !git log --oneline --no-merges --since=1.day --author=\"$(git config user.name)\"
 	log-sprint = !git log --oneline --no-merges --since=2.weeks --author=\"$(git config user.name)\"
