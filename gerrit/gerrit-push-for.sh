@@ -60,7 +60,7 @@ else
     remote=$(echo "$remotes" | head -1)
 fi
 
-revcount=$(git rev-list $ref --not $remote/$target | wc -l)
+revcount=$(git rev-list --first-parent $ref --not $remote/$target | wc -l)
 revcount=$(echo $revcount)
 if [[ $? -eq 0 && $revcount -eq 0 ]]; then
     echo "Nothing to do, $ref is already merged into $remote/$target."
