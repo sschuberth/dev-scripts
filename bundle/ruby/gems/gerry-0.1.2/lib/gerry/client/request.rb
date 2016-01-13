@@ -3,10 +3,14 @@ module Gerry
     module Request
       # Get the mapped options.
       #
-      # @param [Array] options the query parameters.
+      # @param [Array] or [Hash] options the query parameters.
       # @return [String] the mapped options.
       def map_options(options)
-        options.map{|v| "#{v}"}.join('&')
+        if options.is_a?(Array)
+          options.map { |v| "#{v}" }.join('&')
+        elsif options.is_a?(Hash)
+          options.map { |k,v| "#{k}=#{v.join(',')}" }.join('&')
+        end
       end
 
       private
@@ -14,14 +18,13 @@ module Gerry
       end
 
       def get(url)
-        if @username && @password
+        response = if @username && @password
           auth = { username: @username, password: @password }
-          response = self.class.get("/a#{url}", digest_auth: auth)
-          parse(response)
+          self.class.get("/a#{url}", digest_auth: auth)
         else
-          response = self.class.get(url)
-          parse(response)
+          self.class.get(url)
         end
+        parse(response)
       end
 
       def put(url, body)
