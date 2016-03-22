@@ -9,7 +9,7 @@
 	bfg = "!f() { path=$(git --exec-path); [ ! -f \"$path/bfg.jar\" ] && curl -o \"$path/bfg.jar\" -L \"https://search.maven.org/remote_content?g=com.madgag&a=bfg&v=LATEST\"; java -jar \"$path/bfg.jar\" \"$@\"; }; f"
 	br = branch
 	cat = "!f() { git show $2:\"$1\"; }; f"
-	catchup = merge --ff-only upstream/master
+	catchup = "!f() { git merge --ff-only upstream/$(git rev-parse --abbrev-ref HEAD); }; f"
 	chmod = update-index --chmod=+x
 	ci = commit -v
 	co = checkout
