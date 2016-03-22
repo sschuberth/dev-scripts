@@ -23,7 +23,7 @@
 	l1 = log -1 --pretty=fuller
 	log-day = !git log --oneline --no-merges --since=1.day --author=\"$(git config user.name)\"
 	log-sprint = !git log --oneline --no-merges --since=2.weeks --author=\"$(git config user.name)\"
-	ls = "!f() { git ls-tree -r --name-only ${1:-HEAD}; }; f"
+	ls = "!f() { git ls-tree -r --name-only ${2:-HEAD} | grep \"${1:-.*}\"; }; f"
 	mb = "!f() { git branch -r | grep ${USER-$USERNAME}; }; f"
 	mt = mergetool
 	mu = merge --ff-only @{u}
