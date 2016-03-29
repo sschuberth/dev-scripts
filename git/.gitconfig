@@ -1,3 +1,5 @@
+[user]
+	useConfigOnly = true
 [include]
 	path = ~/.gituser
 [core]
