@@ -26,3 +26,7 @@ else
 fi
 
 $gradle wrapper --gradle-version $version
+
+if [ -f $zip ]; then
+    rm -r $zip /tmp/gradle-$version
+fi
