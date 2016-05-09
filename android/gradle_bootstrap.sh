@@ -1,6 +1,10 @@
 #!/bin/sh
 
-# This script depends on https://stedolan.github.io/jq/.
+if ! which jq > /dev/null 2>&1; then
+    echo "This script depends on https://stedolan.github.io/jq/."
+    echo "Please put the 'jq' executable into your PATH."
+    exit 1
+fi
 
 current=$(curl -s https://services.gradle.org/versions/all | jq '.[] | select(.current)')
 
