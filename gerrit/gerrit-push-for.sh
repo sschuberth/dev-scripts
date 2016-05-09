@@ -74,11 +74,18 @@ fi
 topic=$(git rev-parse --abbrev-ref $ref)
 topic=${topic#gerrit/}
 topic=${topic#${USER-$USERNAME}/}
+
+if [[ "$refname" == "drafts" ]]; then
+    entity="draft(s)"
+else
+    entity="change(s)"
+fi
+
 if [[ "$topic" != "" && "$topic" != "HEAD" && "$topic" != "$target" ]]; then
-    echo "Going to push $revcount \"$topic\" commit(s) for \"$remote/$target\"."
+    echo "Going to push $revcount \"$topic\" $entity for \"$remote/$target\"."
     options="%topic=$topic"
 else
-    echo "Going to push $revcount commit(s) for \"$remote/$target\"."
+    echo "Going to push $revcount $entity for \"$remote/$target\"."
 fi
 
 if [ $skip -eq 0 ]; then
