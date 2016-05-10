@@ -6,7 +6,7 @@ if ! which jq > /dev/null 2>&1; then
     exit 1
 fi
 
-current=$(curl -s https://services.gradle.org/versions/all | jq '.[] | select(.current)')
+current=$(curl -s https://services.gradle.org/versions/current)
 
 version=$(echo $current | jq -r '.version')
 echo "The most current Gradle version is $version."
