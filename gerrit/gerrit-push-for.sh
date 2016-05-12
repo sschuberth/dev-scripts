@@ -60,11 +60,16 @@ else
     remote=$(echo "$remotes" | head -1)
 fi
 
-revcount=$(git rev-list --first-parent $ref --not $remote/$target | wc -l)
-revcount=$(echo $revcount)
-if [[ $? -eq 0 && $revcount -eq 0 ]]; then
-    echo "Nothing to do, $ref is already merged into $remote/$target."
-    exit 3
+revlist=$(git rev-list --first-parent $ref --not $remote/$target 2> /dev/null || git rev-list $ref 2> /dev/null)
+if [ $? -eq 0 ]; then
+    revcount=$(echo "$revlist" | wc -l)
+    revcount=$(echo $revcount)
+    if [ $revcount -eq 0 ]; then
+        echo "Nothing to do, $ref is already merged into $remote/$target."
+        exit 3
+    fi
+else
+    revcount="an unknown number of"
 fi
 
 # Create changes from the command line with topic and reviewers optionally set, see:
