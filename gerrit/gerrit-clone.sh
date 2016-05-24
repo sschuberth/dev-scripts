@@ -43,7 +43,7 @@ matches=$(ssh -p $port $host gerrit ls-projects --type code | grep -E $pattern)
 
 if [ -z "$matches" ]; then
     echo "No matching projects found."
-    exit 2
+    exit 3
 fi
 
 echo "$matches"
