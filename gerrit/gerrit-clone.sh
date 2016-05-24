@@ -20,7 +20,7 @@ done
 
 if [ -n "$help" -o $# -ne 2 ]; then
     echo "Rationale"
-    echo "    Clone all projects matching the given pattern from Gerrit."
+    echo "    Clone all projects matching the given regex pattern from Gerrit."
     echo
     echo "Usage"
     echo "    $(basename $0) <host> <pattern>"
