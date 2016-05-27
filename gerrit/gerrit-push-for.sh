@@ -113,6 +113,10 @@ if [ $skip -eq 0 ]; then
         echo "Determining reviewers..."
         user=$(git config user.name)
         reviewers=$(git contacts $remote/$target..$ref 2> /dev/null | grep -iv "$user" | cut -d "<" -f 2 | cut -d ">" -f 1 | sort -u)
+        if [ -f ~/gerrit-push-for.whitelist ]; then
+            dos2unix -k ~/gerrit-push-for.whitelist 2> /dev/null
+            reviewers=$(echo "$reviewers" | grep -f ~/gerrit-push-for.whitelist)
+        fi
         if [ -f ~/gerrit-push-for.blacklist ]; then
             dos2unix -k ~/gerrit-push-for.blacklist 2> /dev/null
             reviewers=$(echo "$reviewers" | grep -vf ~/gerrit-push-for.blacklist)
