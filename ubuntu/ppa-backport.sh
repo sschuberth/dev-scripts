@@ -11,10 +11,10 @@ package=$(apt-cache search "^$1(-[0-9\.]+)?$" | tail -1 | cut -d" " -f1)
 echo "Using package name '$package'"
 
 # Find out the source package it belogs to.
-message=$(apt-get source -s $package | grep "as source package")
-echo $message
-
-source=$(echo $message | cut -d"'" -f2)
+message=$(apt-get source -s $package)
+echo "$message" | grep "^Picking.*as source package"
+source=$(echo "$message" | tail -1 | cut -d" " -f3)
+echo "Using source package name '$source'"
 
 # Backport the package. For details see
 # https://opensourcehacker.com/2013/03/20/how-to-backport-packages-on-ubuntu-linux/
