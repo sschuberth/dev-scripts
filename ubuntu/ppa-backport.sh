@@ -1,7 +1,8 @@
 #!/bin/sh
 
 if [ $# -ne 3 ]; then
-    echo "Usage: $(basename $0) <package> <release> <ppa>"
+    echo "Usage   : $(basename $0) <package> <release> <ppa>"
+    echo "Example : $(basename $0) cmake trusty we-are-here/testing"
     exit 1
 fi
 
