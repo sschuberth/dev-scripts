@@ -6,8 +6,9 @@ if [ $# -ne 3 ]; then
     exit 1
 fi
 
-# Get the latest available version of the package.
-package=$(apt-cache search $1 | tail -1 | cut -d" " -f1)
+# Get the name of the latest available package (in case of multiple matching package names).
+package=$(apt-cache search "^$1(-[0-9\.]+)?$" | tail -1 | cut -d" " -f1)
+echo "Using package name '$package'"
 
 # Find out the source package it belogs to.
 message=$(apt-get source -s $package | grep "as source package")
