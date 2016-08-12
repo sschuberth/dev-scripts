@@ -28,7 +28,8 @@ wget http://www.cmake.org/files/v$to_ver_short/cmake-$to_ver.tar.gz
 tar -xf cmake-$to_ver.tar.gz
 mv cmake-$to_ver.tar.gz cmake_$to_ver.orig.tar.gz
 
-wget https://launchpad.net/$from_user/+archive/ubuntu/$from_name/+files/cmake_$from.debian.tar.xz
+[ "$from_user" = "ubuntu" ] && from_name=primary || from_name=ubuntu/$from_name
+wget https://launchpad.net/$from_user/+archive/$from_name/+files/cmake_$from.debian.tar.xz
 tar -C cmake-$to_ver -xf cmake_$from.debian.tar.xz
 
 cd cmake-$to_ver &&
