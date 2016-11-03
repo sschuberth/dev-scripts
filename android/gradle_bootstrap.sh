@@ -11,6 +11,13 @@ current=$(curl -s https://services.gradle.org/versions/current)
 version=$(echo $current | jq -r '.version')
 echo "The most recent Gradle version is $version."
 
+dist_type_min_version=3.1
+if [ $(echo -e "$version\n$dist_type_min_version" | sort -V | head -1) = $dist_type_min_version ]; then
+    [ -z $1 ] && dist_type="bin" || dist_type="all"
+    echo "Will use the '$dist_type' distribution type."
+    dist_type="--distribution-type $dist_type"
+fi
+
 dist=$(ls -d ~/.gradle/wrapper/dists/gradle-$version-*/*/gradle-$version 2> /dev/null)
 if [ $? -eq 0 ]; then
     dist=$(echo "$dist" | head -1)
@@ -25,7 +32,7 @@ else
     gradle=/tmp/gradle-$version/bin/gradle
 fi
 
-$gradle --no-daemon wrapper --gradle-version $version
+$gradle --no-daemon wrapper --gradle-version $version $dist_type
 
 if [ -f "$zip" ]; then
     rm -r $zip /tmp/gradle-$version
