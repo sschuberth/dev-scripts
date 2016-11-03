@@ -9,7 +9,7 @@ fi
 current=$(curl -s https://services.gradle.org/versions/current)
 
 version=$(echo $current | jq -r '.version')
-echo "The most current Gradle version is $version."
+echo "The most recent Gradle version is $version."
 
 dist=$(ls -d ~/.gradle/wrapper/dists/gradle-$version-*/*/gradle-$version 2> /dev/null)
 if [ $? -eq 0 ]; then
