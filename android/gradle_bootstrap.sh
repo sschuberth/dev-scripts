@@ -25,7 +25,7 @@ else
     gradle=/tmp/gradle-$version/bin/gradle
 fi
 
-$gradle wrapper --gradle-version $version
+$gradle --no-daemon wrapper --gradle-version $version
 
 if [ -f "$zip" ]; then
     rm -r $zip /tmp/gradle-$version
