@@ -52,7 +52,7 @@
 [diff]
 	renamelimit = 0
 	renames = copies
-	compactionHeuristic = true
+	indentHeuristic = true
 [merge]
 	tool = bc
 [mergetool]
