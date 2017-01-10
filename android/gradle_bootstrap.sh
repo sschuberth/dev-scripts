@@ -11,6 +11,11 @@ current=$(curl -s https://services.gradle.org/versions/current)
 version=$(echo $current | jq -r '.version')
 echo "The most recent Gradle version is $version."
 
+if [ -n "$2" ]; then
+    version=$2
+    echo "Using provided Gradle version $version."
+fi
+
 dist_type_min_version=3.1
 if [ $(echo -e "$version\n$dist_type_min_version" | sort -V | head -1) = $dist_type_min_version ]; then
     [ -z $1 ] && dist_type="bin" || dist_type="all"
