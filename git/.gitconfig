@@ -24,6 +24,7 @@
 	in = !git fetch -q && git log --oneline ..@{u}
 	out = "!f() { git log --oneline @{u}.. 2> /dev/null || git log --oneline origin/master..; }; f"
 	l1 = log -1 --pretty=fuller
+	lro = "!f() { right=${2:-HEAD}; git log --oneline --cherry-mark --right-only $1...$right; }; f"
 	log-day = !git log --oneline --no-merges --since=1.day --author=\"$(git config user.name)\"
 	log-sprint = !git log --oneline --no-merges --since=2.weeks --author=\"$(git config user.name)\"
 	ls = "!f() { git ls-tree -r --name-only ${2:-HEAD} | grep \"${1:-.*}\"; }; f"
