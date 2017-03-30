@@ -38,7 +38,7 @@ else
 fi
 
 # In the end, ensure the Gradle wrapper is executable, e.g. if a previously existing one was overwritten.
-$gradle --no-daemon wrapper --gradle-version $version $dist_type && chmod a+x gradlew
+$gradle --no-daemon --configure-on-demand wrapper --gradle-version $version $dist_type && chmod a+x gradlew
 
 if [ -f "$zip" ]; then
     rm -r $zip /tmp/gradle-$version
