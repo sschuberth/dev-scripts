@@ -24,9 +24,9 @@ theirs=$1^2
 base=$(git merge-base $ours $theirs)
 
 if $conflicts_only; then
-    files=$(git show $1 | grep "diff --cc" | cut -d " " -f 3)
+    files=$(git show $1 | grep "diff --cc" | cut -d " " -f 3-)
 else
-    files=$(git merge-tree $base $ours $theirs | grep -A 3 "changed in both" | grep "base" | cut -d " " -f 8)
+    files=$(git merge-tree $base $ours $theirs | grep -A 3 "changed in both" | grep "base" | cut -d " " -f 8-)
 fi
 
 if [ -n "$files" ]; then
@@ -54,8 +54,8 @@ else
     fi
 fi
 
-for f in $files; do
-    echo $f
+for f in "$files"; do
+    echo "$f"
 done
 
 TOOL_MODE=merge
