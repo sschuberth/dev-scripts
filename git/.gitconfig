@@ -33,6 +33,7 @@
 	mu = merge --ff-only @{u}
 	orphan = "!f() { git checkout --orphan $1 && git rm -fr .; }; f"
 	pr = pull --rebase
+	puf = push --force-with-lease
 	ra = rebase --abort
 	rc = rebase --continue
 	ri = rebase -i
