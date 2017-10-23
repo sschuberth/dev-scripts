@@ -39,6 +39,7 @@
 	rs = remote -v
 	ru = reset --hard @{u}
 	sq = "!f() { amount=${1:-2}; git reset --soft HEAD~$amount && git commit -m \"$(git log --format=%B --reverse HEAD..HEAD@{1})\" --edit; }; f"
+	squash-all = "!f() { git reset $(git commit-tree HEAD^{tree} -m \"${1:-Initial commit}\"); }; f"
 	st = status
 	unpushed = log --branches --not --remotes --simplify-by-decoration --decorate --oneline
 	up = "!f() { upstream=${1:-upstream/master}; head=${2:-HEAD}; git log --cherry --oneline $upstream...$head; }; f"
