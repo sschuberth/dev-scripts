@@ -2,17 +2,31 @@
 
 # Space-separated list of blacklisted word.
 BLACKLIST=${1:-secret password}
+BLACKLIST_ARGS="${BLACKLIST/ / --grep=}"
+BLACKLIST_PATTERN="(${BLACKLIST/ /|})"
 
 echo -e "Searching commit messages for blacklisted words...\n"
-BLACKLIST_ARGS="${BLACKLIST/ / --grep=}"
 git log --all --format=full --grep=$BLACKLIST_ARGS -i
 
 echo -e "\n--\n"
 
 echo -e "Searching commits for blacklisted words...\n"
-BLACKLIST_PATTERN="(${BLACKLIST/ /|})"
 git rev-list --all | (
     while read REVISION; do
         git grep -i -E $BLACKLIST_PATTERN $REVISION
+    done
+)
+
+echo -e "\n--\n"
+
+echo -e "Searching commits for blacklisted paths...\n"
+git rev-list --all | (
+    while read REVISION; do
+        GIT_PATHS=$(git ls-tree -r --name-only $REVISION | grep -E $BLACKLIST_PATTERN)
+        if [ -n "$GIT_PATHS" ]; then
+            for GIT_PATH in "$GIT_PATHS"; do
+                echo -e "$REVISION:\n$GIT_PATH"
+            done
+        fi
     done
 )
