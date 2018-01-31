@@ -36,6 +36,7 @@
 	puf = push --force-with-lease
 	ra = rebase --abort
 	rc = rebase --continue
+	remign = "!f() { git ls-files -i -z --exclude-from=.gitignore | xargs -0 git rm --cached; }; f"
 	ri = rebase -i
 	rs = remote -v
 	ru = reset --hard @{u}
