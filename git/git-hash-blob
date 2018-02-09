@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# This script calculates the same as "git hash-object $1".
+# This script calculates the Git-style SHA1 for a blob / file like "git hash-object $1" does.
 
 infile=$1
 outfile=$(mktemp)
