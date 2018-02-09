@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# This script return the Git-style SHA1 of the blob for a given file.
+
+infile=$1
+
+git ls-tree HEAD $infile | cut -f1 | cut -d' ' -f3
