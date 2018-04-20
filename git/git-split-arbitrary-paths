@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# Credits go to http://jimmy.schementi.com/splitting-up-a-git-repo.
+
+PATHS_TO_KEEP="$@"
+git filter-branch -f --index-filter "git rm --ignore-unmatch --cached -qr -- . && git reset -q \$GIT_COMMIT -- $PATHS_TO_KEEP" --prune-empty -- HEAD
