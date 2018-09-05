@@ -1,0 +1,7 @@
+#!/bin/bash
+
+FILES=${@:-$(git ls-tree -r --name-only HEAD)}
+
+for FILE in $FILES; do
+    git blame --line-porcelain HEAD "$FILE"
+done | sed -nr 's,^author (.*),\1,p' | sort | uniq -c | sort -nr
