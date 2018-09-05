@@ -1,7 +1,5 @@
 #!/bin/bash
 
-FILES=$(git ls-files -s $@ | grep -v "^16000" | cut -f2-)
-
-for FILE in $FILES; do
-    git blame --line-porcelain HEAD "$FILE"
-done | sed -nr 's,^author (.*),\1,p' | sort | uniq -c | sort -nr
+git ls-files -s $@ | grep -v "^16000" | cut -f2- | \
+    xargs -n1 git blame --line-porcelain HEAD | sed -nr 's,^author (.*),\1,p' | \
+    sort | uniq -c | sort -nr
