@@ -95,8 +95,10 @@ fi
 
 if [ $skip -eq 0 ]; then
     # Determine email addresses of potential reviewers (except oneself).
-    git help -a | grep -q " contacts "
-    if [ $? -ne 0 ]; then
+    git contacts 2> /dev/null
+    git_contacts_exit_code=$?
+
+    if [ $git_contacts_exit_code -eq 1 ]; then
         read -p "git-contacts not found, do you want to download it? [(Y)es/(n)o] " -n 1 -r
         echo
         if [ "$REPLY" != "n" -a "$REPLY" != "N" ]; then
@@ -105,11 +107,13 @@ if [ $skip -eq 0 ]; then
                 curl -Lo "$exec_path/git-contacts" https://github.com/git/git/raw/master/contrib/contacts/git-contacts
             fi
         fi
-        git help -a | grep -q " contacts "
+
+        git contacts 2> /dev/null
+        git_contacts_exit_code=$?
     fi
 
     # Second try after potentially have downloaded git-contacts.
-    if [ $? -eq 0 ]; then
+    if [ $git_contacts_exit_code -eq 255 ]; then
         echo "Determining reviewers..."
         user=$(git config user.name)
         reviewers=$(git contacts $remote/$target..$ref 2> /dev/null | grep -iv "$user" | cut -d "<" -f 2 | cut -d ">" -f 1 | sort -u)
