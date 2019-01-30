@@ -116,7 +116,7 @@ if [ $skip -eq 0 ]; then
     if [ $git_contacts_exit_code -eq 255 ]; then
         echo "Determining reviewers..."
         user=$(git config user.name)
-        reviewers=$(git contacts $remote/$target..$ref 2> /dev/null | grep -iv "$user" | cut -d "<" -f 2 | cut -d ">" -f 1 | sort -u)
+        reviewers=$(git contacts $remote/$target..$ref 2> /dev/null | grep -iv "$user" | cut -d "<" -f 2 | cut -d ">" -f 1 | sort -f -u)
         if [ -f ~/gerrit-push-for.whitelist ]; then
             dos2unix -k ~/gerrit-push-for.whitelist 2> /dev/null
             reviewers=$(echo "$reviewers" | grep -f ~/gerrit-push-for.whitelist)
