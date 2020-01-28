@@ -4,7 +4,7 @@
 	path = ~/.gituser
 [core]
 	pager = less -+S
-	autocrlf = true
+	autocrlf = true # This is for Windows; on Linux use "autocrlf = input".
 	safecrlf = warn
 [alias]
 	aa = commit --amend -a --no-edit
