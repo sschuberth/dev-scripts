@@ -14,4 +14,3 @@ echo "Merging '$CUSTOMIZATION_BRANCHES' into '$CURRENT_BRANCH'..."
 
 git reset --hard origin/master
 git for-each-ref --format='%(refname)' refs/remotes/internal/ort-pipeline-customizations | xargs -n1 git merge --no-ff
-git push --force-with-lease
