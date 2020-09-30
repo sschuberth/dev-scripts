@@ -1,5 +1,6 @@
 #!/bin/sh
 
+UPSTREAM_BRANCH="origin/master"
 CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 TARGET_BRANCH=${CURRENT_BRANCH%-test}
 
@@ -10,7 +11,8 @@ if [ -z "$CUSTOMIZATION_BRANCHES" ]; then
     exit 1
 fi
 
-echo "Merging '$CUSTOMIZATION_BRANCHES' into '$CURRENT_BRANCH'..."
+echo "Resetting branch to '$UPSTREAM_BRANCH'..."
+git reset --hard $UPSTREAM_BRANCH
 
-git reset --hard origin/master
+echo "Merging '$CUSTOMIZATION_BRANCHES' into '$CURRENT_BRANCH'..."
 git for-each-ref --format='%(refname)' refs/remotes/internal/ort-pipeline-customizations | xargs -n1 git merge --no-ff
