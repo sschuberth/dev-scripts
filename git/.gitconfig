@@ -22,7 +22,7 @@
 	has = branch -a --contains
 	id = rev-parse --short HEAD
 	in = !git fetch -q && git log --oneline ..@{u}
-	out = "!f() { git log --oneline @{u}.. 2> /dev/null || git log --oneline origin/master..; }; f"
+	out = "!f() { git log --oneline @{u}.. 2> /dev/null || git log --oneline origin/$(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)..; }; f"
 	l1 = log -1 --pretty=fuller
 	lro = "!f() { right=${2:-HEAD}; git log --oneline --cherry-mark --right-only $1...$right; }; f"
 	log-day = !git log --oneline --no-merges --since=1.day --author=\"$(git config user.name)\"
