@@ -1,0 +1,14 @@
+#!/bin/sh
+
+NUM_DAYS=${1:-14}
+REV=${2:-HEAD}
+
+LAST_COMMIT_DATE=$(git log -1 --date=unix --pretty=format:%cd $REV)
+SECONDS_FOR_DAYS=$((60 * 60 * 24 * $NUM_DAYS))
+SINCE=$(($LAST_COMMIT_DATE - $SECONDS_FOR_DAYS))
+
+REV_NAME=$(git name-rev --name-only $REV)
+DATE=$(date --date=@$SINCE "+%Y-%m-%d %H:%M:%S")
+echo "Unique authors within $NUM_DAYS day(s) from the latest commit on '$REV_NAME' (since $DATE):"
+
+git shortlog -sne --since=$SINCE $REV | wc -l
