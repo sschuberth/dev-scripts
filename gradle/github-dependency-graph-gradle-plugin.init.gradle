@@ -1,0 +1,24 @@
+// This uses the Gradle plugin from https://github.com/gradle/github-dependency-graph-gradle-plugin.
+//
+// Running this like
+//
+// $ ./gradlew -I ~/Downloads/github-dependency-graph-gradle-plugin.init.gradle ForceDependencyResolutionPlugin_resolveAllDependencies
+//
+// creates these two files:
+//
+// - ./build/reports/dependency-graph-snapshots/dependency-graph.json
+// - ./build/reports/dependency-graph-snapshots/dependency-list.txt
+
+initscript {
+    repositories {
+        maven {
+            url = uri("https://plugins.gradle.org/m2/")
+        }
+    }
+
+    dependencies {
+        classpath("org.gradle:github-dependency-graph-gradle-plugin:1.3.1")
+    }
+}
+
+apply plugin: org.gradle.dependencygraph.simple.SimpleDependencyGraphPlugin
