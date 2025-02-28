@@ -4,6 +4,7 @@
 @file:DependsOn("net.pwall.json:json-kotlin-schema-codegen:0.116")
 
 import com.github.ajalt.clikt.core.CliktCommand
+import com.github.ajalt.clikt.core.Context
 import com.github.ajalt.clikt.core.context
 import com.github.ajalt.clikt.core.main
 import com.github.ajalt.clikt.output.MordantHelpFormatter
@@ -33,6 +34,9 @@ object : CliktCommand(name = __FILE__.name) {
             helpFormatter = { MordantHelpFormatter(context = it, "*", showDefaultValues = true) }
         }
     }
+
+    override fun help(context: Context): String =
+        "This command takes a JSON schema (either a URI or a file) as the input and produces matching code for Kotlin data classes as the output."
 
     override fun run() {
         val schemaUri = URI.create(schema).takeIf { it.isAbsolute } ?: File(schema).toURI()
