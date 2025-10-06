@@ -10,6 +10,7 @@
 	aa = commit --amend -a --no-edit
 	bfg = "!f() { path=$(git --exec-path); [ ! -f \"$path/bfg.jar\" ] && curl -o \"$path/bfg.jar\" -L \"https://search.maven.org/remote_content?g=com.madgag&a=bfg&v=LATEST\"; java -jar \"$path/bfg.jar\" \"$@\"; }; f"
 	br = branch
+	bra = for-each-ref --sort=-committerdate refs/heads/ --format='%(committerdate:short) %(refname:short)'
 	cat = "!f() { git show $2:\"$1\"; }; f"
 	catchup = "!f() { git merge --ff-only upstream/$(git rev-parse --abbrev-ref HEAD); }; f"
 	chmod = update-index --chmod=+x
