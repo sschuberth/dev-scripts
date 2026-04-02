@@ -49,6 +49,8 @@
 	up = "!f() { upstream=${1:-upstream/master}; head=${2:-HEAD}; git log --cherry --oneline $upstream...$head; }; f"
 [color]
 	ui = true
+[fetch]
+	parallel = 4
 [push]
 	default = current
 [rebase]
